@@ -18,6 +18,10 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<DateDimension>()
+            .HasIndex(dd => dd.Name)
+            .IsUnique();
         
         modelBuilder.Entity<DateDimension>()
             .HasMany(dd => dd.Teams)
@@ -25,6 +29,10 @@ public class AppDbContext : DbContext
             .HasForeignKey(t => t.DateDimensionId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Team>()
+            .HasIndex(t => t.Name)
+            .IsUnique();
+        
         modelBuilder.Entity<Team>()
             .HasMany(t => t.Workers)
             .WithOne(w => w.Team)
@@ -43,6 +51,10 @@ public class AppDbContext : DbContext
             .HasForeignKey(o => o.WorkerId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Worker>()
+            .HasIndex(w => new { w.Name, w.TeamId })
+            .IsUnique();
+        
         modelBuilder.Entity<Team>()
             .HasMany(t => t.Workers)
             .WithOne(w => w.Team)

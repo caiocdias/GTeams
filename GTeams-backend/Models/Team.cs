@@ -11,6 +11,8 @@ public class Team
     
     [StringLength(100)]
     public string Name { get; set; } = string.Empty;
+
+    public bool IsActive { get; set; } = true;
     
     [Required]
     public decimal ServiceNoteGoal { get; set; }

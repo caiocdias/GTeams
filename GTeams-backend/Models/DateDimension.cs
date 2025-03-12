@@ -12,6 +12,8 @@ public class DateDimension
     [Required]
     [StringLength(100)]
     public string Name { get; set; }
+
+    public bool IsActive { get; set; } = true;
     
     [Required]
     public DateOnly StartDate { get; set; }

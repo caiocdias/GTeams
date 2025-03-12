@@ -3,6 +3,7 @@ using System.Runtime.InteropServices.JavaScript;
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.DateDimensionDtos;
 using GTeams_backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.Services;
 
@@ -33,5 +34,22 @@ public class DateDimensionService(AppDbContext dbContext)
             TotalBusinessDays = dateDimension.TotalBusinessDays,
             Teams = dateDimension.Teams
         };
+    }
+
+    public async Task<List<DateDimensionReturnDto>> GetAllDateDimensionAsync()
+    {
+        List<DateDimension> dateDimensions = await dbContext.DateDimensions
+            .Include(dd => dd.Teams)
+            .ToListAsync();
+
+        return dateDimensions.Select(dd => new DateDimensionReturnDto
+        {
+            Id = dd.Id,
+            Name = dd.Name,
+            StartDate = dd.StartDate,
+            EndDate = dd.EndDate,
+            TotalBusinessDays = dd.TotalBusinessDays,
+            Teams = dd.Teams
+        }).ToList();
     }
 }

@@ -26,4 +26,13 @@ public class DateDimensionController(DateDimensionService dateDimensionService) 
             return StatusCode(500, new { message = ex.Message });
         }
     }
+
+    [HttpGet("GetAllDateDimension")]
+    public async Task<ActionResult<List<DateDimensionReturnDto>>> GetAllDateDimensionAsync()
+    {
+        var dateDimensions = await dateDimensionService.GetAllDateDimensionAsync();
+        return Ok(dateDimensions);
+    }
+    
+    
 }

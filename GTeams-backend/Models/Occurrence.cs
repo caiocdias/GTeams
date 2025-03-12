@@ -11,6 +11,8 @@ public class Occurrence
     
     [StringLength(255)]
     public string Description { get; set; } = string.Empty;
+
+    public bool IsActive { get; set; } = true;
     
     public DateOnly StartDate { get; set; }
     public DateOnly EndDate { get; set; }

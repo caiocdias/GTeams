@@ -1,0 +1,6 @@
+@GTeams_backend_HostAddress = http://localhost:5077
+
+GET {{GTeams_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

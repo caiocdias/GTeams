@@ -3,3 +3,6 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+gteams.db
+gteams.db-shm
+gteams.db-wal

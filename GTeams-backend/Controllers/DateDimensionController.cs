@@ -9,25 +9,21 @@ namespace GTeams_backend.Controllers;
 [ApiController]
 public class DateDimensionController(DateDimensionService dateDimensionService) : ControllerBase
 {
-    [HttpPost("AddDateDimension")]
-    public async Task<ActionResult> AddDateDimension([FromBody] DateDimensionRegisterDto dateDimensionRegisterDto)
+    [HttpPost("AddDateDimensionAsync")]
+    public async Task<ActionResult> AddDateDimensionAsync([FromBody] DateDimensionRegisterDto dateDimensionRegisterDto)
     {
         try
         {
-            DateDimensionReturnDto dateDimensionReturnDto = await dateDimensionService.CreateDateDimensionAsync(dateDimensionRegisterDto);
+            DateDimensionReturnDto dateDimensionReturnDto = await dateDimensionService.AddDateDimensionAsync(dateDimensionRegisterDto);
             return Ok(dateDimensionReturnDto);
-        }
-        catch (ArgumentNullException ex)
-        {
-            return BadRequest(new { message = ex.Message });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { message = ex.Message });
+            return BadRequest(new { message = ex.Message });
         }
     }
 
-    [HttpGet("GetAllDateDimension")]
+    [HttpGet("GetAllDateDimensionAsync")]
     public async Task<ActionResult<List<DateDimensionReturnDto>>> GetAllDateDimensionAsync()
     {
         var dateDimensions = await dateDimensionService.GetAllDateDimensionAsync();

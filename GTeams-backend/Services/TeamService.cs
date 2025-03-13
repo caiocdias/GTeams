@@ -1,7 +1,6 @@
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.TeamDtos;
 using GTeams_backend.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.Services;
@@ -10,7 +9,7 @@ public class TeamService(AppDbContext dbContext)
 {
     public async Task<TeamReturnDto> AddTeamAsync(TeamRegisterDto teamRegisterDto)
     {
-        var dateDimension = await dbContext.DateDimensions.FindAsync(teamRegisterDto.DateDimension);
+        DateDimension? dateDimension = await dbContext.DateDimensions.FindAsync(teamRegisterDto.DateDimensionId);
         if (dateDimension == null)
             throw new KeyNotFoundException("Invalid dateDimension");
         
@@ -40,7 +39,7 @@ public class TeamService(AppDbContext dbContext)
         };
     }
     
-    public async Task<List<TeamReturnDto>> GettAllTeamsAsync()
+    public async Task<List<TeamReturnDto>> GetAllTeamsAsync()
     {
         List<Team> teams = await dbContext.Teams
             .Include(t => t.DateDimension)

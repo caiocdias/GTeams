@@ -29,7 +29,7 @@ public class TeamController(TeamService teamService) : ControllerBase
     {
         try
         {
-            List<TeamReturnDto> teamReturnDtos = await teamService.GettAllTeamsAsync();
+            List<TeamReturnDto> teamReturnDtos = await teamService.GetAllTeamsAsync();
             return Ok(teamReturnDtos);
         }
         catch (Exception e)

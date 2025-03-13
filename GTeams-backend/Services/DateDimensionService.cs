@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.JavaScript;
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.DateDimensionDtos;
 using GTeams_backend.Models;
@@ -38,7 +36,7 @@ public class DateDimensionService(AppDbContext dbContext)
         };
     }
 
-    public async Task<List<DateDimensionReturnDto>> GetAllDateDimensionAsync()
+    public async Task<List<DateDimensionReturnDto>> GetAllDateDimensionsAsync()
     {
         List<DateDimension> dateDimensions = await dbContext.DateDimensions
             .Include(dd => dd.Teams)

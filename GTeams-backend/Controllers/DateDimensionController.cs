@@ -26,7 +26,7 @@ public class DateDimensionController(DateDimensionService dateDimensionService) 
     [HttpGet("GetAllDateDimensionAsync")]
     public async Task<ActionResult<List<DateDimensionReturnDto>>> GetAllDateDimensionAsync()
     {
-        var dateDimensions = await dateDimensionService.GetAllDateDimensionAsync();
+        List<DateDimensionReturnDto> dateDimensions = await dateDimensionService.GetAllDateDimensionsAsync();
         return Ok(dateDimensions);
     }
     

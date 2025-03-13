@@ -1,3 +1,4 @@
+using GTeams_backend.Dtos.DateDimensionDtos;
 using GTeams_backend.Dtos.TeamDtos;
 using GTeams_backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,23 @@ public class TeamController(TeamService teamService) : ControllerBase
             TeamReturnDto teamReturnDto = await teamService.AddTeamAsync(teamRegisterDto);
             return Ok(teamReturnDto);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            return BadRequest(new { message = ex.Message });
+            return BadRequest(new { message = e.Message });
         }
         
+    }
+    [HttpGet("GetAllTeamsAsync")]
+    public async Task<ActionResult<List<TeamReturnDto>>> GetAllTeamsAsync()
+    {
+        try
+        {
+            List<TeamReturnDto> teamReturnDtos = await teamService.GettAllTeamsAsync();
+            return Ok(teamReturnDtos);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.Message });
+        }
     }
 }

@@ -1,6 +1,8 @@
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.TeamDtos;
 using GTeams_backend.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.Services;
 
@@ -36,5 +38,26 @@ public class TeamService(AppDbContext dbContext)
             Workers = team.Workers,
             Occurrences = team.Occurrences
         };
+    }
+    
+    public async Task<List<TeamReturnDto>> GettAllTeamsAsync()
+    {
+        List<Team> teams = await dbContext.Teams
+            .Include(t => t.DateDimension)
+            .Include(t => t.Workers)
+            .Include(t => t.Occurrences)
+            .ToListAsync();
+
+        return teams.Select(t => new TeamReturnDto
+        {
+            Id = t.Id,
+            Name = t.Name,
+            IsActive = t.IsActive,
+            ServiceNoteGoal = t.ServiceNoteGoal,
+            ServiceUnitGoal = t.ServiceUnitGoal,
+            DateDimension = t.DateDimension,
+            Workers = t.Workers,
+            Occurrences = t.Occurrences
+        }).ToList();
     }
 }

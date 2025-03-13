@@ -60,4 +60,28 @@ public class TeamService(AppDbContext dbContext)
             Occurrences = t.Occurrences
         }).ToList();
     }
+
+    public async Task<TeamReturnDto?> GetTeamByIdAsync(int teamId)
+    {
+        Team? team = await dbContext.Teams
+            .Include(t => t.DateDimension)
+            .Include(t => t.Workers)
+            .Include(t => t.Occurrences)
+            .FirstOrDefaultAsync(t => t.Id == teamId);
+
+        if (team == null)
+            return null;
+
+        return new TeamReturnDto
+        {
+            Id = team.Id,
+            Name = team.Name,
+            IsActive = team.IsActive,
+            ServiceNoteGoal = team.ServiceNoteGoal,
+            ServiceUnitGoal = team.ServiceUnitGoal,
+            DateDimension = team.DateDimension,
+            Workers = team.Workers,
+            Occurrences = team.Occurrences
+        };
+    }
 }

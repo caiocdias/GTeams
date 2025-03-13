@@ -23,6 +23,7 @@ public class TeamController(TeamService teamService) : ControllerBase
         }
         
     }
+    
     [HttpGet("GetAllTeamsAsync")]
     public async Task<ActionResult<List<TeamReturnDto>>> GetAllTeamsAsync()
     {
@@ -30,6 +31,24 @@ public class TeamController(TeamService teamService) : ControllerBase
         {
             List<TeamReturnDto> teamReturnDtos = await teamService.GettAllTeamsAsync();
             return Ok(teamReturnDtos);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.Message });
+        }
+    }
+
+    [HttpGet("GetTeamByIdAsync/{id}")]
+    public async Task<ActionResult<TeamReturnDto>> GetTeamByIdAsync(int id)
+    {
+        try
+        {
+            TeamReturnDto teamReturnDto = await teamService.GetTeamByIdAsync(id);
+
+            if (teamReturnDto == null)
+                return NotFound(new { message = "Team not found." });
+
+            return Ok(teamReturnDto);
         }
         catch (Exception e)
         {

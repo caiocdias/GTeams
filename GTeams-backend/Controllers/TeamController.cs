@@ -55,4 +55,13 @@ public class TeamController(TeamService teamService) : ControllerBase
             return BadRequest(new { message = e.Message });
         }
     }
+
+    [HttpDelete("SoftDeleteTeamAsync/{id}")]
+    public async Task<ActionResult<bool>> SoftDeleteTeamAsync(int id)
+    {
+        bool flag = await teamService.SoftDeleteTeamAsync(id);
+        if (flag == false)
+            return NotFound(new { message = "Team not found." });
+        return Ok(new { message = "Team soft deleted." });
+    }
 }

@@ -84,4 +84,15 @@ public class TeamService(AppDbContext dbContext)
             Occurrences = team.Occurrences
         };
     }
+    public async Task<bool> SoftDeleteTeamAsync(int teamId)
+    {
+        Team? team = await dbContext.Teams.FirstOrDefaultAsync(t => t.Id == teamId);
+        if (team == null)
+            return false;
+
+        team.IsActive = false;
+        await dbContext.SaveChangesAsync();
+    
+        return true;
+    }
 }

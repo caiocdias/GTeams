@@ -1,0 +1,29 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace GTeams_backend.Models;
+
+public class EquipeMetaMensal
+{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+    
+    [Required]
+    [ForeignKey("Equipe")]
+    public int EquipeId { get; set; }
+    public Equipe Equipe { get; set; } = null!;
+
+    [Required]
+    [ForeignKey("DimensaoData")]
+    public int DimensaoDataId { get; set; }
+    public DimensaoData DimensaoData { get; set; } = null!;
+    
+    [Required]
+    public decimal MetaMensalNs { get; set; }
+    
+    [Required]
+    public decimal MetaMensalUs { get; set; }
+    
+    public ICollection<MetaDiariaColaborador> MetaDiariaColaborador { get; set; }
+}

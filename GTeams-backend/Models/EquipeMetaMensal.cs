@@ -15,8 +15,8 @@ public class EquipeMetaMensal
     public Equipe Equipe { get; set; } = null!;
 
     [Required]
-    [ForeignKey("DimensaoData")]
-    public int DimensaoDataId { get; set; }
+    [ForeignKey("IntervaloMedicao")]
+    public int IntervaloMedicaoId { get; set; }
     public IntervaloMedicao IntervaloMedicao { get; set; } = null!;
     
     [Required]

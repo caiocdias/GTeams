@@ -7,11 +7,11 @@ public class Equipe
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public static int Id { get; set; }
+    public int Id { get; set; }
     
     [StringLength(100)]
     public string Nome { get; set; } = string.Empty;
     
-    public ICollection<Colaborador> Colaborador { get; set; } = new HashSet<Colaborador>();
-    public ICollection<EquipeMetaMensal> EquipeMetaMensal { get; set; } = new List<EquipeMetaMensal>();
+    public ICollection<Colaborador> Colaboradores { get; set; } = new List<Colaborador>();
+    public ICollection<EquipeMetaMensal> EquipesMetasMensais { get; set; } = new List<EquipeMetaMensal>();
 }

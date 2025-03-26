@@ -11,7 +11,7 @@ public class DataPersonalizadaMedicao
     public int Id { get; set; }
     
     [Required]
-    public DateTime Data { get; set; }
+    public DateOnly Data { get; set; }
     [Required]
     public TipoData TipoData { get; set; }
     

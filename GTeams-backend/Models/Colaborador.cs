@@ -32,8 +32,8 @@ public class Colaborador
     [Required]
     public Funcao Funcao { get; set; }
     
-    public ICollection<Observacao> Observacao { get; set; } = new List<Observacao>();
-    public ICollection<Matricula> Matricula { get; set; } = new List<Matricula>();
+    public ICollection<Observacao> Observacoes { get; set; } = new List<Observacao>();
+    public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
     public ICollection<DataPersonalizadaColaborador> DatasPersonalizadasColaborador { get; set; } = new List<DataPersonalizadaColaborador>();
     public void SetPassword(string password)
     {

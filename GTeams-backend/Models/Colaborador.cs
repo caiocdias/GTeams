@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using GTeams_backend.Models.Enums;
 
@@ -16,26 +15,11 @@ public class Colaborador
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     
-    [StringLength(15)]
-    public string MatriculaGmax { get; set; } = string.Empty;
-    
-    [StringLength(15)]
-    public string MatriculaCemig { get; set; } = string.Empty;
-    
     [StringLength(100)]
     public string Nome { get; set; } = string.Empty;
     
     [Required]
     public byte[] PasswordHash { get; set; } = new byte[0];
-    
-    [StringLength(50)]
-    public string EmailZeny { get; set; } = string.Empty;
-    
-    [StringLength(50)]
-    public string EmailCemig { get; set; } = string.Empty;
-    
-    [StringLength(50)]
-    public string Telefone { get; set; } = string.Empty;
     
     [StringLength(14)]
     public string Cpf { get; set; } = string.Empty;
@@ -48,9 +32,9 @@ public class Colaborador
     [Required]
     public Funcao Funcao { get; set; }
     
-    public ICollection<MetaDiariaColaborador> MetaDiariaColaborador { get; set; } = new List<MetaDiariaColaborador>();
-    public ICollection<Observacao> Observacao { get; set; } = new HashSet<Observacao>();
-    
+    public ICollection<Observacao> Observacao { get; set; } = new List<Observacao>();
+    public ICollection<Matricula> Matricula { get; set; } = new List<Matricula>();
+    public ICollection<DataPersonalizadaColaborador> DatasPersonalizadasColaborador { get; set; } = new List<DataPersonalizadaColaborador>();
     public void SetPassword(string password)
     {
         using (var rng = RandomNumberGenerator.Create())

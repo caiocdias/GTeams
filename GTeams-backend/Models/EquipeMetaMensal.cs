@@ -17,13 +17,11 @@ public class EquipeMetaMensal
     [Required]
     [ForeignKey("DimensaoData")]
     public int DimensaoDataId { get; set; }
-    public DimensaoData DimensaoData { get; set; } = null!;
+    public IntervaloMedicao IntervaloMedicao { get; set; } = null!;
     
     [Required]
     public decimal MetaMensalNs { get; set; }
     
     [Required]
     public decimal MetaMensalUs { get; set; }
-    
-    public ICollection<MetaDiariaColaborador> MetaDiariaColaborador { get; set; }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GTeams_backend.Models;
 
-public class DimensaoData
+public class IntervaloMedicao
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,8 +17,6 @@ public class DimensaoData
     [Required]
     public DateOnly DataFinal { get; set; }
     
-    [Required]
-    public int QtdDiasUteis { get; set; }
-    
+    public ICollection<DataPersonalizadaMedicao> DatasPersonalizadasMedicao { get; set; } = new List<DataPersonalizadaMedicao>();
     public ICollection<EquipeMetaMensal> EquipeMetaMensal { get; set; } = new List<EquipeMetaMensal>();
 }

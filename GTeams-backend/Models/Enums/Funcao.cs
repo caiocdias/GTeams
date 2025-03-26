@@ -4,5 +4,6 @@ public enum Funcao
 {
     Operador,
     Administrador,
-    Visualizador
+    Visualizador,
+    Supervisor
 }

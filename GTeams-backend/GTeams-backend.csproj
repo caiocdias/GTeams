@@ -28,8 +28,7 @@
     <ItemGroup>
       <Folder Include="Controllers\" />
       <Folder Include="Data\" />
-      <Folder Include="Dtos\DateDimensionDtos\" />
-      <Folder Include="Dtos\TeamDtos\" />
+      <Folder Include="Dtos\" />
       <Folder Include="Services\" />
       <Folder Include="Views\" />
     </ItemGroup>

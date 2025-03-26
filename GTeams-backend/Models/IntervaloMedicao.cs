@@ -8,9 +8,9 @@ public class IntervaloMedicao
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    
+
     [StringLength(100)]
-    public string Nome { get; set; }
+    public string Nome { get; set; } = string.Empty;
     
     [Required]
     public DateOnly DataInicial { get; set; }

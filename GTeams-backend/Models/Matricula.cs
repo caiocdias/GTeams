@@ -10,10 +10,10 @@ public class Matricula
     public int Id { get; set; }
     
     [StringLength(15)]
-    public string Codigo { get; set; }
+    public string Codigo { get; set; } = string.Empty;
     
     [StringLength(50)]
-    public string Descricao { get; set; }
+    public string Descricao { get; set; } = string.Empty;
     
     [Required]
     [ForeignKey("Colaborador")]

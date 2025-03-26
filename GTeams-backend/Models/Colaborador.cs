@@ -27,7 +27,7 @@ public class Colaborador
     [Required]
     [ForeignKey("Equipe")]
     public int EquipeId { get; set; }
-    public Equipe Equipe { get; set; }
+    public Equipe Equipe { get; set; } = null!;
     
     [Required]
     public Funcao Funcao { get; set; }

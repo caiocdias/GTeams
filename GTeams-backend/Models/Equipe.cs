@@ -12,6 +12,8 @@ public class Equipe
     [StringLength(100)]
     public string Nome { get; set; } = string.Empty;
     
+    public bool Ativo { get; set; } = true;
+    
     public ICollection<Colaborador> Colaboradores { get; set; } = new List<Colaborador>();
     public ICollection<EquipeMetaMensal> EquipesMetasMensais { get; set; } = new List<EquipeMetaMensal>();
 }

@@ -10,14 +10,14 @@ public class InserirColaboradorDto
     [StringLength(100)]
     public string Nome { get; set; } = string.Empty;
     
-    [Required]
-    public Funcao Funcao { get; set; }
-    
     [StringLength(14)]
     [RegularExpression(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$", ErrorMessage = "CPF inválido. Use o formato 000.000.000-00.")]
     public string Cpf { get; set; } = "000.000.000-00";
     
     public int EquipeId { get; set; }
+    
+    [Required]
+    public Funcao Funcao { get; set; }
     
     public ICollection<InserirMatriculaDto> Matriculas { get; set; } = new List<InserirMatriculaDto>();
     public ICollection<InserirEmailDto> Emails { get; set; } = new List<InserirEmailDto>();

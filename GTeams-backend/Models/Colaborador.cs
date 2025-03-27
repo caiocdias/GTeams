@@ -22,7 +22,10 @@ public class Colaborador
     public byte[] PasswordHash { get; set; } = new byte[0];
     
     [StringLength(14)]
-    public string Cpf { get; set; } = string.Empty;
+    [RegularExpression(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$", ErrorMessage = "CPF inválido. Use o formato 000.000.000-00.")]
+    public string Cpf { get; set; } = "000.000.000-00";
+    
+    public bool Ativo { get; set; } = true;
     
     [Required]
     [ForeignKey("Equipe")]
@@ -35,6 +38,8 @@ public class Colaborador
     public ICollection<Observacao> Observacoes { get; set; } = new List<Observacao>();
     public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
     public ICollection<DataPersonalizadaColaborador> DatasPersonalizadasColaborador { get; set; } = new List<DataPersonalizadaColaborador>();
+    public ICollection<Email> Emails { get; set; } = new List<Email>();
+    
     public void SetPassword(string password)
     {
         using (var rng = RandomNumberGenerator.Create())

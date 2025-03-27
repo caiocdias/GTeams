@@ -50,14 +50,10 @@ public class EmailService(AppDbContext appDbContext)
         return true;
     }
     
-    public async Task<Email> ObterEmailPorIdAsync(int emailId)
+    public async Task<Email?> ObterEmailPorIdAsync(int emailId)
     {
         Email? email = await appDbContext.Emails
             .FirstOrDefaultAsync(e => e.Id == emailId);
-
-        if (email == null)
-            throw new InvalidOperationException("E-mail não encontrado.");
-
         return email;
     }
 }

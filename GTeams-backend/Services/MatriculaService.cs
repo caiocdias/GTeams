@@ -48,14 +48,10 @@ public class MatriculaService(AppDbContext appDbContext)
         return true;
     }
     
-    public async Task<Matricula> ObterMatriculaPorIdAsync(int matriculaId)
+    public async Task<Matricula?> ObterMatriculaPorIdAsync(int matriculaId)
     {
         Matricula? matricula = await appDbContext.Matriculas
-            .FirstOrDefaultAsync(m => m.Id == matriculaId);
-
-        if (matricula == null)
-            throw new InvalidOperationException("Matrícula não encontrada.");
-
+            .FindAsync(matriculaId);
         return matricula;
     }
 

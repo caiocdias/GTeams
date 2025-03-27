@@ -3,10 +3,8 @@ using GTeams_backend.Models;
 
 namespace GTeams_backend.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
     public DbSet<Colaborador> Colaboradores { get; set; }
     public DbSet<Equipe> Equipes { get; set; }
     public DbSet<EquipeMetaMensal> EquipesMetasMensais { get; set; }
@@ -15,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Observacao> Observacoes { get; set; }
     public DbSet<DataPersonalizadaColaborador> DatasPersonalizadasColaborador { get; set; }
     public DbSet<DataPersonalizadaMedicao> DatasPersonalizadasMedicao { get; set; }
+    public DbSet<Email> Emails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

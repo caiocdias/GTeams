@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GTeams_backend.Dtos.EmailDtos;
+using GTeams_backend.Dtos.EquipeDtos;
 using GTeams_backend.Dtos.MatriculaDtos;
 using GTeams_backend.Models;
 using GTeams_backend.Models.Enums;
@@ -28,4 +29,6 @@ public class RetornarColaboradorDto
 
     public ICollection<RetornarMatriculaDto> Matriculas { get; set; } = new List<RetornarMatriculaDto>();
     public ICollection<RetornarEmailDto> Emails { get; set; } = new List<RetornarEmailDto>();
+    public ICollection<RetornarEquipeDto> Equipes { get; set; } = new List<RetornarEquipeDto>();
+
 }

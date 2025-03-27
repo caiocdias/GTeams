@@ -14,6 +14,6 @@ public class Equipe
     
     public bool Ativo { get; set; } = true;
     
-    public ICollection<Colaborador> Colaboradores { get; set; } = new List<Colaborador>();
+    public ICollection<EquipeColaborador> EquipesColaboradores { get; set; } = new List<EquipeColaborador>();
     public ICollection<EquipeMetaMensal> EquipesMetasMensais { get; set; } = new List<EquipeMetaMensal>();
 }

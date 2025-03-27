@@ -28,14 +28,10 @@ public class Colaborador
     public bool Ativo { get; set; } = true;
     
     [Required]
-    [ForeignKey("Equipe")]
-    public int EquipeId { get; set; }
-    public Equipe Equipe { get; set; } = null!;
-    
-    [Required]
     public Funcao Funcao { get; set; }
     
     public ICollection<Observacao> Observacoes { get; set; } = new List<Observacao>();
+    public ICollection<EquipeColaborador> EquipesColaboradores { get; set; } = new List<EquipeColaborador>();
     public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
     public ICollection<DataPersonalizadaColaborador> DatasPersonalizadasColaborador { get; set; } = new List<DataPersonalizadaColaborador>();
     public ICollection<Email> Emails { get; set; } = new List<Email>();

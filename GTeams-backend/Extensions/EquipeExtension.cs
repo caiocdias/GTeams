@@ -10,7 +10,8 @@ public static class EquipeExtension
         return new RetornarEquipeDto
         {
             Id = equipe.Id,
-            Nome = equipe.Nome
+            Nome = equipe.Nome,
+            Ativo = equipe.Ativo
         };
     }
 }

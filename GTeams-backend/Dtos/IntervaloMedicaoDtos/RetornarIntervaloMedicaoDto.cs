@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using GTeams_backend.Dtos.DataPersonalizadaMedicaoDtos;
 using GTeams_backend.Models;
 
 namespace GTeams_backend.Dtos.IntervaloMedicaoDtos;
@@ -15,5 +16,5 @@ public class RetornarIntervaloMedicaoDto
     [Required]
     public DateOnly DataFinal { get; set; }
     
-    public ICollection<DataPersonalizadaMedicao> DatasPersonalizadasMedicao { get; set; } = new List<DataPersonalizadaMedicao>();
+    public ICollection<RetornarDataPersonalizadaMedicaoDto> DatasPersonalizadasMedicao { get; set; } = new List<RetornarDataPersonalizadaMedicaoDto>();
 }

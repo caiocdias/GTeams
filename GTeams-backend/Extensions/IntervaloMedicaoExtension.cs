@@ -1,3 +1,4 @@
+using GTeams_backend.Dtos.DataPersonalizadaMedicaoDtos;
 using GTeams_backend.Dtos.IntervaloMedicaoDtos;
 using GTeams_backend.Models;
 
@@ -13,6 +14,12 @@ public static class IntervaloMedicaoExtension
             DataInicial = intervaloMedicao.DataInicial,
             DataFinal = intervaloMedicao.DataFinal,
             DatasPersonalizadasMedicao = intervaloMedicao.DatasPersonalizadasMedicao
+                .Select(d => new RetornarDataPersonalizadaMedicaoDto()
+                {
+                    Id = d.Id,
+                    Data = d.Data,
+                    TipoData = d.TipoData.ToString()
+                }).ToList()
         };
     }
 }

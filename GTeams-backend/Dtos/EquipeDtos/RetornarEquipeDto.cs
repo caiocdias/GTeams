@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using GTeams_backend.Dtos.ColaboradorDtos;
-using GTeams_backend.Models;
 
 namespace GTeams_backend.Dtos.EquipeDtos;
 

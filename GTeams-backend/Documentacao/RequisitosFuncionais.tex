@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\geometry{a4paper, margin=2.5cm}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+
+\title{Documentação Técnica \\ \large Sistema GTeams}
+\author{Equipe de Desenvolvimento}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Briefing Executivo}
+
+O \textbf{GTeams} é um sistema de gestão de equipes e colaboradores voltado para organizações que precisam acompanhar, planejar e avaliar a atuação de seus times de maneira estruturada e eficiente.
+
+A principal proposta do sistema é fornecer uma base de dados centralizada e segura onde gestores podem:
+
+\begin{itemize}
+    \item Cadastrar colaboradores e suas funções dentro de equipes;
+    \item Estabelecer metas mensais e acompanhar a performance por intervalos de medição;
+    \item Registrar observações relevantes sobre a atuação dos profissionais;
+    \item Controlar datas personalizadas como férias, atestados, folgas e outras ocorrências;
+    \item Visualizar todo o histórico do contrato de metas por colaborador.
+\end{itemize}
+
+O GTeams visa facilitar a tomada de decisão gerencial, oferecendo maior visibilidade sobre a produtividade das equipes, promovendo transparência e possibilitando ações corretivas em tempo hábil.
+
+\textbf{Benefícios esperados:}
+\begin{itemize}
+    \item Centralização das informações de desempenho dos colaboradores;
+    \item Otimização do planejamento de equipes e alocação de tarefas;
+    \item Redução de falhas na gestão de metas;
+    \item Facilidade de acesso a dados históricos e comparativos;
+    \item Suporte à gestão estratégica com base em evidências.
+\end{itemize}
+
+\section{Especificação de Requisitos}
+
+\subsection{Requisitos Funcionais}
+
+\begin{enumerate}[label=RF\arabic*.]
+    \item O sistema deve permitir o cadastro de \textbf{colaboradores}, incluindo nome, CPF, equipe associada e função (Operador, Administrador, Visualizador ou Supervisor).
+    \item O sistema deve armazenar a \textbf{senha do colaborador} de forma segura utilizando criptografia baseada em salt e SHA512.
+    \item O sistema deve permitir o registro de \textbf{equipes}, com múltiplos colaboradores associados.
+    \item O sistema deve permitir o registro de \textbf{intervalos de medição}, com data inicial, data final e nome.
+    \item O sistema deve associar metas mensais por equipe e intervalo de medição, armazenando metas para unidades NS e US.
+    \item O sistema deve registrar \textbf{observações} feitas por colaboradores, associadas a um intervalo de datas.
+    \item O sistema deve permitir o registro de \textbf{datas personalizadas} para colaboradores e medições, classificadas como: Útil, Fim de Semana, Férias, Atestado ou Meia Atuação.
+    \item O sistema deve permitir o registro de \textbf{matrículas} dos colaboradores, com código e descrição.
+\end{enumerate}
+
+\subsection{Requisitos Não Funcionais}
+
+\begin{enumerate}[label=RNF\arabic*.]
+    \item O sistema deve ser desenvolvido utilizando a plataforma \texttt{.NET 8.0} com o Entity Framework Core.
+    \item O sistema deve utilizar o padrão de projeto \texttt{Code First} para gerenciamento do banco.
+    \item Os dados sensíveis devem ser armazenados com mecanismos de segurança baseados em hashing com salt e múltiplas iterações.
+\end{enumerate}
+
+\subsection{Modelo de Domínio}
+
+As principais entidades do sistema incluem:
+\begin{itemize}
+    \item \textbf{Colaborador}
+    \item \textbf{Equipe}
+    \item \textbf{EquipeMetaMensal}
+    \item \textbf{IntervaloMedicao}
+    \item \textbf{Matricula}
+    \item \textbf{Observacao}
+    \item \textbf{DataPersonalizadaColaborador}
+    \item \textbf{DataPersonalizadaMedicao}
+\end{itemize}
+
+\section{Considerações Finais}
+
+O projeto GTeams está estruturado para permitir a evolução futura com suporte a múltiplos perfis de usuário, novas regras de negócio e integração com sistemas de relatório e dashboards. A adoção de boas práticas e tecnologias modernas garantem escalabilidade, segurança e clareza no modelo de dados.
+
+\end{document}

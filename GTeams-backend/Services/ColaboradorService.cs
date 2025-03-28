@@ -3,6 +3,7 @@ using GTeams_backend.Dtos.ColaboradorDtos;
 using GTeams_backend.Dtos.EmailDtos;
 using GTeams_backend.Dtos.EquipeDtos;
 using GTeams_backend.Dtos.MatriculaDtos;
+using GTeams_backend.Extensions;
 using GTeams_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,34 +11,6 @@ namespace GTeams_backend.Services;
 
 public class ColaboradorService(AppDbContext appDbContext, EquipeService equipeService, EmailService emailService, MatriculaService matriculaService)
 {
-    private static RetornarColaboradorDto MapToDto(Colaborador colaborador)
-    {
-        return new RetornarColaboradorDto
-        {
-            Id = colaborador.Id,
-            Nome = colaborador.Nome,
-            Cpf = colaborador.Cpf,
-            Ativo = colaborador.Ativo,
-            Funcao = colaborador.Funcao,
-            Emails = colaborador.Emails.Select(e => new RetornarEmailDto
-            {
-                Descricao = e.Descricao,
-                Endereco = e.Endereco
-            }).ToList(),
-            Matriculas = colaborador.Matriculas.Select(m => new RetornarMatriculaDto
-            {
-                Codigo = m.Codigo,
-                Descricao = m.Descricao
-            }).ToList(),
-            Equipes = colaborador.EquipesColaboradores.Select(ec => new RetornarEquipeDto
-            {
-                Id = ec.Equipe.Id,
-                Nome = ec.Equipe.Nome,
-                Ativo = ec.Equipe.Ativo
-            }).ToList()
-        };
-    }
-
     public async Task<RetornarColaboradorDto> InserirColaboradorAsync(InserirColaboradorDto inserirColaboradorDto)
     {
         // Verificação global: todos os colaboradores
@@ -65,12 +38,11 @@ public class ColaboradorService(AppDbContext appDbContext, EquipeService equipeS
                 // Reativar
                 existente.Ativo = true;
                 existente.Funcao = inserirColaboradorDto.Funcao;
-                existente.Cpf = inserirColaboradorDto.Cpf;
                 existente.SetPassword(inserirColaboradorDto.Password);
 
                 await appDbContext.SaveChangesAsync();
 
-                return MapToDto(existente);
+                return existente.ToReturnDto();
             }
         }
 
@@ -114,7 +86,7 @@ public class ColaboradorService(AppDbContext appDbContext, EquipeService equipeS
         if (colaboradorComDados == null)
             throw new InvalidOperationException("Erro ao recuperar colaborador.");
 
-        return MapToDto(colaboradorComDados);
+        return colaboradorComDados.ToReturnDto();
     }
 
     public async Task<Colaborador?> ObterColaboradorPorIdAsync(int colaboradorId)
@@ -141,18 +113,33 @@ public class ColaboradorService(AppDbContext appDbContext, EquipeService equipeS
         colaborador.Ativo = false;
         await appDbContext.SaveChangesAsync();
 
-        return MapToDto(colaborador);
+        return colaborador.ToReturnDto();
     }
     
-    public async Task<List<RetornarColaboradorDto>> ObterTodosColaboradoresAsync()
+    public async Task<List<Colaborador>> ObterTodosColaboradoresAsync()
     {
-        var colaboradores = await appDbContext.Colaboradores
+        return await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
             .Include(c => c.EquipesColaboradores)
             .ThenInclude(ec => ec.Equipe)
             .ToListAsync();
+    }
+    
+    public async Task<Colaborador?> ObterColaboradorPorMatriculaAsync(string matricula)
+    {
+        var colaborador = await appDbContext.Colaboradores
+            .Include(c => c.Matriculas)
+            .Include(c => c.Emails)
+            .Include(c => c.EquipesColaboradores)
+            .ThenInclude(ec => ec.Equipe)
+            .Include(c => c.DatasPersonalizadasColaborador)
+            .Include(c => c.Observacoes)
+            .FirstOrDefaultAsync(c => c.Matriculas.Any(m => m.Codigo.Trim().ToLower() == matricula.Trim().ToLower()));
 
-        return colaboradores.Select(c => MapToDto(c)).ToList();
+        if (colaborador is null)
+            return null;
+
+        return colaborador;
     }
 }

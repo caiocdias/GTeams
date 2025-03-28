@@ -5,6 +5,7 @@ namespace GTeams_backend.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
+    //Teste
     public DbSet<Colaborador> Colaboradores { get; set; }
     public DbSet<Equipe> Equipes { get; set; }
     public DbSet<EquipeColaborador> EquipesColaboradores { get; set; }

@@ -22,9 +22,6 @@ public class RetornarColaboradorDto
     public bool Ativo { get; set; } = true;
 
     [Required]
-    public Equipe Equipe { get; set; } = null!;
-
-    [Required]
     public Funcao Funcao { get; set; }
 
     public ICollection<RetornarMatriculaDto> Matriculas { get; set; } = new List<RetornarMatriculaDto>();

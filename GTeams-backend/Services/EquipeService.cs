@@ -67,4 +67,10 @@ public class EquipeService(AppDbContext appDbContext)
         Equipe? equipe = await appDbContext.Equipes.FindAsync(equipeId);
         return equipe;
     }
+    
+    public async Task<List<Equipe>> ObterTodasEquipesAsync()
+    {
+        return await appDbContext.Equipes.ToListAsync();
+    }
+
 }

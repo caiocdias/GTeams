@@ -57,4 +57,19 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet("ObterTodasEquipes")]
+    public async Task<IActionResult> ObterTodasEquipes()
+    {
+        try
+        {
+            List<Equipe> equipes = await equipeService.ObterTodasEquipesAsync();
+            List<RetornarEquipeDto> equipesDto = equipes.Select(e => e.ToReturnDto()).ToList();
+            return Ok(equipesDto);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

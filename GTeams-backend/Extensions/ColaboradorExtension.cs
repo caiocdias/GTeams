@@ -16,7 +16,7 @@ public static class ColaboradorExtension
             Nome = colaborador.Nome,
             Cpf = colaborador.Cpf,
             Ativo = colaborador.Ativo,
-            Funcao = colaborador.Funcao,
+            Funcao = colaborador.Funcao.ToString(),
             Emails = colaborador.Emails.Select(e => new RetornarEmailDto
             {
                 Descricao = e.Descricao,

@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using GTeams_backend.Dtos.EmailDtos;
 using GTeams_backend.Dtos.EquipeDtos;
 using GTeams_backend.Dtos.MatriculaDtos;
-using GTeams_backend.Models.Enums;
 
 namespace GTeams_backend.Dtos.ColaboradorDtos;
 
@@ -20,7 +19,7 @@ public class RetornarColaboradorDto
     public bool Ativo { get; set; } = true;
 
     [Required]
-    public Funcao Funcao { get; set; }
+    public string Funcao { get; set; } = string.Empty;
 
     public ICollection<RetornarMatriculaDto> Matriculas { get; set; } = new List<RetornarMatriculaDto>();
     public ICollection<RetornarEmailDto> Emails { get; set; } = new List<RetornarEmailDto>();

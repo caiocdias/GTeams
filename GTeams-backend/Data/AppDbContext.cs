@@ -20,7 +20,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         base.OnModelCreating(modelBuilder);
 
-        // Conversões de enums para string
         modelBuilder.Entity<Colaborador>()
             .Property(c => c.Funcao)
             .HasConversion<string>();
@@ -33,7 +32,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .Property(d => d.TipoData)
             .HasConversion<string>();
 
-        // Configuração do relacionamento muitos-para-muitos via entidade explícita
         modelBuilder.Entity<EquipeColaborador>()
             .HasKey(ec => ec.Id);
 
@@ -46,10 +44,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasOne(ec => ec.Equipe)
             .WithMany(e => e.EquipesColaboradores)
             .HasForeignKey(ec => ec.EquipeId);
-
-        // Índice único para evitar duplicações da mesma combinação
+        
         modelBuilder.Entity<EquipeColaborador>()
             .HasIndex(ec => new { ec.ColaboradorId, ec.EquipeId })
             .IsUnique();
+        
+        modelBuilder.Entity<Matricula>()
+            .HasIndex(m => m.Codigo)
+            .IsUnique();
     }
+
 }

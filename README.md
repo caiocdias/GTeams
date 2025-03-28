@@ -18,7 +18,7 @@ Além do backend, o projeto contém documentação formal em LaTeX, consolidando
 - Entity Framework Core 8
 - C#
 - LaTeX (Documentação)
-- Banco de Dados relacional (ex: MySQL, SQL Server, PostgreSQL)
+- Banco de Dados relacional
 
 ---
 

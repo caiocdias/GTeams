@@ -13,11 +13,18 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
     [HttpPost("InserirColaborador")]
     public async Task<IActionResult> InserirColaborador([FromBody] InserirColaboradorDto? inserirColaboradorDto)
     {
-        if (inserirColaboradorDto is null || !ModelState.IsValid)
-            return BadRequest(ModelState);
+        try
+        {
+            if (inserirColaboradorDto is null || !ModelState.IsValid)
+                return BadRequest(ModelState);
         
-        RetornarColaboradorDto retornarColaboradorDto = await colaboradorService.InserirColaboradorAsync(inserirColaboradorDto);
-        return Ok(retornarColaboradorDto);
+            RetornarColaboradorDto retornarColaboradorDto = await colaboradorService.InserirColaboradorAsync(inserirColaboradorDto);
+            return Ok(retornarColaboradorDto);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("ObterColaboradorPorId/{idColaborador}")]
@@ -33,13 +40,20 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
     [HttpGet("ObterTodosColaboradores")]
     public async Task<IActionResult> ObterTodosColaboradores()
     {
-        List<Colaborador> colaboradores = await colaboradorService.ObterTodosColaboradoresAsync();
-        
-        List<RetornarColaboradorDto> colaboradoresDto = colaboradores
-            .Select(c => c.ToReturnDto())
-            .ToList();
-        
-        return Ok(colaboradoresDto);
+        try
+        {
+            List<Colaborador> colaboradores = await colaboradorService.ObterTodosColaboradoresAsync();
+
+            List<RetornarColaboradorDto> colaboradoresDto = colaboradores
+                .Select(c => c.ToReturnDto())
+                .ToList();
+
+            return Ok(colaboradoresDto);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpDelete("DesativarColaborador/{idColaborador}")]
@@ -60,18 +74,26 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] ColaboradorLoginDto loginDto)
     {
-        Colaborador? user = await colaboradorService.ObterColaboradorPorMatriculaAsync(loginDto.Matricula);
-        if (user == null || !user.ValidatePassword(loginDto.Password))
-            return Unauthorized(new { message = "E-mail ou senha inválidos" });
+        try
+        {
+            Colaborador? user = await colaboradorService.ObterColaboradorPorMatriculaAsync(loginDto.Matricula);
+            if (user == null || !user.ValidatePassword(loginDto.Password))
+                return Unauthorized(new { message = "E-mail ou senha inválidos" });
 
-        if (!user.Ativo)
-            return StatusCode(403, new { message = "Usuário desativado" });
+            if (!user.Ativo)
+                return StatusCode(403, new { message = "Usuário desativado" });
 
-        string? token = jwtService.GenerateToken(user);
-        
-        if (token == null)
-            return BadRequest();
-        
-        return Ok(new { token });
+            string? token = jwtService.GenerateToken(user);
+
+            if (token == null)
+                return BadRequest();
+
+            return Ok(new { token });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+
     }
 }

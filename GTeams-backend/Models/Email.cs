@@ -15,6 +15,7 @@ public class Email
     
     [Required]
     [EmailAddress]
+    [StringLength(50)]
     public string Endereco { get; set; } = string.Empty;
     
     [Required]

@@ -1,15 +1,12 @@
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.ColaboradorDtos;
-using GTeams_backend.Dtos.EmailDtos;
-using GTeams_backend.Dtos.EquipeDtos;
-using GTeams_backend.Dtos.MatriculaDtos;
 using GTeams_backend.Extensions;
 using GTeams_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.Services;
 
-public class ColaboradorService(AppDbContext appDbContext, EquipeService equipeService, EmailService emailService, MatriculaService matriculaService)
+public class ColaboradorService(AppDbContext appDbContext, EmailService emailService, MatriculaService matriculaService)
 {
     public async Task<RetornarColaboradorDto> InserirColaboradorAsync(InserirColaboradorDto inserirColaboradorDto)
     {

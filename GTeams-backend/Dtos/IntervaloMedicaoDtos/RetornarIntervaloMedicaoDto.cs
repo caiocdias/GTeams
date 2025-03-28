@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using GTeams_backend.Dtos.DataPersonalizadaMedicaoDtos;
-using GTeams_backend.Models;
 
 namespace GTeams_backend.Dtos.IntervaloMedicaoDtos;
 

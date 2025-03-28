@@ -31,7 +31,7 @@ public class IntervaloMedicao
             DatasPersonalizadasMedicao.Add(new DataPersonalizadaMedicao
             {
                 Data = data,
-                TipoData = (data.DayOfWeek == DayOfWeek.Saturday || data.DayOfWeek == DayOfWeek.Sunday)
+                TipoData = data.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday
                     ? TipoData.FimDeSemana
                     : TipoData.Util
             });

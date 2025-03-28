@@ -56,7 +56,7 @@ public class Colaborador
     
     public bool ValidatePassword(string password)
     {
-        if (PasswordHash == null || PasswordHash.Length != SaltSize + KeySize)
+        if (PasswordHash.Length != SaltSize + KeySize)
             return false;
         
         byte[] salt = new byte[SaltSize];

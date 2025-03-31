@@ -45,7 +45,7 @@ public class EquipeColaboradorController(EquipeColaboradorService equipeColabora
         {
             EquipeColaborador? equipeColaborador = await equipeColaboradorService.ObterEquipeColaboradorPorIdAsync(colaboradorId, equipeId);
             if (equipeColaborador == null)
-                throw new InvalidOperationException("Víncula não encontrado.");
+                return NotFound();
             
             return Ok(equipeColaborador.ToReturnDto());
         }
@@ -55,8 +55,8 @@ public class EquipeColaboradorController(EquipeColaboradorService equipeColabora
         }
     }
 
-    [HttpGet("ObterTodosEquipeColaboradorAsync")]
-    public async Task<IActionResult> ObterTodosEquipeColaboradorAsync()
+    [HttpGet("ObterTodosEquipeColaborador")]
+    public async Task<IActionResult> ObterTodosEquipeColaborador()
     {
         try
         {

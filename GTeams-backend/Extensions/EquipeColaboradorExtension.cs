@@ -13,8 +13,7 @@ public static class EquipeColaboradorExtension
             NomeColaborador = ec.Colaborador?.Nome ?? string.Empty,
             NomeEquipe = ec.Equipe?.Nome ?? string.Empty,
             IsLider = ec.IsLider,
-            DataEntrada = ec.DataEntrada,
-            DataSaida = ec.DataSaida
+            Ativo = ec.Ativo
         };
     }
 }

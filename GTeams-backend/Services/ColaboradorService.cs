@@ -1,5 +1,7 @@
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.ColaboradorDtos;
+using GTeams_backend.Dtos.EmailDtos;
+using GTeams_backend.Dtos.MatriculaDtos;
 using GTeams_backend.Extensions;
 using GTeams_backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,19 +12,18 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
 {
     public async Task<RetornarColaboradorDto> InserirColaboradorAsync(InserirColaboradorDto inserirColaboradorDto)
     {
-        // Verificação global: todos os colaboradores
-        var colaboradores = await appDbContext.Colaboradores
+        List<Colaborador> colaboradores = await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
             .Include(c => c.EquipesColaboradores)
             .ThenInclude(ec => ec.Equipe)
             .ToListAsync();
 
-        var matriculasInformadas = inserirColaboradorDto.Matriculas
+        HashSet<string> matriculasInformadas = inserirColaboradorDto.Matriculas
             .Select(m => m.Codigo.Trim().ToLower())
             .ToHashSet();
 
-        foreach (var existente in colaboradores)
+        foreach (Colaborador existente in colaboradores)
         {
             bool nomesIguais = existente.Nome.Trim().ToLower() == inserirColaboradorDto.Nome.Trim().ToLower();
             bool matriculaCoincidente = existente.Matriculas.Any(m => matriculasInformadas.Contains(m.Codigo.Trim().ToLower()));
@@ -31,8 +32,7 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
             {
                 if (existente.Ativo)
                     throw new InvalidOperationException("Já existe um colaborador com o mesmo nome e matrícula no sistema.");
-
-                // Reativar
+                
                 existente.Ativo = true;
                 existente.Funcao = inserirColaboradorDto.Funcao;
                 existente.SetPassword(inserirColaboradorDto.Password);
@@ -42,8 +42,7 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
                 return existente.ToReturnDto();
             }
         }
-
-        // Criar colaborador novo
+        
         Colaborador colaborador = new Colaborador
         {
             Nome = inserirColaboradorDto.Nome,
@@ -57,14 +56,14 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         await appDbContext.SaveChangesAsync();
 
         // Adicionar matrículas
-        foreach (var matricula in inserirColaboradorDto.Matriculas)
+        foreach (InserirMatriculaDto matricula in inserirColaboradorDto.Matriculas)
         {
             matricula.ColaboradorId = colaborador.Id;
             await matriculaService.InserirMatriculaAsync(matricula);
         }
 
         // Adicionar e-mails
-        foreach (var email in inserirColaboradorDto.Emails)
+        foreach (InserirEmailDto email in inserirColaboradorDto.Emails)
         {
             email.ColaboradorId = colaborador.Id;
             await emailService.InserirEmailAsync(email);
@@ -73,7 +72,7 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         await appDbContext.SaveChangesAsync();
 
         // Recuperar colaborador completo
-        var colaboradorComDados = await appDbContext.Colaboradores
+        Colaborador? colaboradorComDados = await appDbContext.Colaboradores
             .Include(c => c.Emails)
             .Include(c => c.Matriculas)
             .Include(c => c.EquipesColaboradores)

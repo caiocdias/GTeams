@@ -18,8 +18,6 @@ public class EquipeColaborador
     [ForeignKey("Equipe")]
     public int EquipeId { get; set; }
     public Equipe Equipe { get; set; } = null!;
-    
-    public bool? IsLider { get; set; }
-    public DateOnly? DataEntrada { get; set; }
-    public DateOnly? DataSaida { get; set; }
+    public bool IsLider { get; set; } = false;
+    public bool Ativo { get; set; } = true;
 }

@@ -18,23 +18,67 @@ public class EquipeColaboradorService(AppDbContext appDbContext, ColaboradorServ
         if (equipe is not { Ativo: true })
             throw new InvalidOperationException("Equipe não encontrada.");
 
-        bool jaExiste = await appDbContext.EquipesColaboradores
-            .AnyAsync(ec => ec.ColaboradorId == dto.ColaboradorId && ec.EquipeId == dto.EquipeId);
-        if (jaExiste)
-            throw new InvalidOperationException("O colaborador já está vinculado a essa equipe.");
+        EquipeColaborador? vinculoExistente = await appDbContext.EquipesColaboradores
+            .FirstOrDefaultAsync(ec => ec.ColaboradorId == dto.ColaboradorId && ec.EquipeId == dto.EquipeId);
 
-        EquipeColaborador equipeColaborador = new EquipeColaborador
+        if (vinculoExistente != null)
+        {
+            if (vinculoExistente.Ativo)
+                throw new InvalidOperationException("O colaborador já está vinculado a essa equipe.");
+            
+            vinculoExistente.Ativo = true;
+            vinculoExistente.IsLider = dto.IsLider;
+
+            await appDbContext.SaveChangesAsync();
+            return vinculoExistente.ToReturnDto();
+        }
+        
+        EquipeColaborador novoVinculo = new EquipeColaborador
         {
             ColaboradorId = dto.ColaboradorId,
             EquipeId = dto.EquipeId,
             IsLider = dto.IsLider,
-            DataEntrada = dto.DataEntrada ?? DateOnly.FromDateTime(DateTime.Now),
-            DataSaida = dto.DataSaida
+            Ativo = true
         };
 
-        appDbContext.EquipesColaboradores.Add(equipeColaborador);
+        appDbContext.EquipesColaboradores.Add(novoVinculo);
         await appDbContext.SaveChangesAsync();
 
-        return equipeColaborador.ToReturnDto();
+        return novoVinculo.ToReturnDto();
+    }
+
+    public async Task<RetornarEquipeColaboradorDto> RemoverColaboradorEmEquipeAsync(int colaboradorId, int equipeId)
+    {
+        EquipeColaborador? vinculoExistente = await appDbContext.EquipesColaboradores
+            .Include(ec => ec.Colaborador)
+            .Include(ec => ec.Equipe)
+            .FirstOrDefaultAsync(ec => ec.ColaboradorId == colaboradorId && ec.EquipeId == equipeId);
+
+        if (vinculoExistente == null)
+            throw new KeyNotFoundException("Vínculo entre colaborador e equipe não encontrado.");
+
+        if (!vinculoExistente.Ativo)
+            throw new InvalidOperationException("O colaborador já está desativado nesta equipe.");
+        
+        vinculoExistente.Ativo = false;
+        await appDbContext.SaveChangesAsync();
+        
+        return vinculoExistente.ToReturnDto();
+    }
+
+    public async Task<EquipeColaborador?> ObterEquipeColaboradorPorIdAsync(int colaboradorId, int equipeId)
+    {
+        return await appDbContext.EquipesColaboradores
+            .Include(ec => ec.Colaborador)
+            .Include(ec => ec.Equipe)
+            .FirstOrDefaultAsync(ec => ec.ColaboradorId == colaboradorId && ec.EquipeId == equipeId);
+    }
+
+    public async Task<List<EquipeColaborador>> ObterTodosEquipeColaboradorAsync()
+    {
+        return await appDbContext.EquipesColaboradores
+            .Include(ec => ec.Colaborador)
+            .Include(ec => ec.Equipe)
+            .ToListAsync();
     }
 }

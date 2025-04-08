@@ -19,13 +19,15 @@ builder.Services.AddScoped<MatriculaService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IntervaloMedicaoService>();
 builder.Services.AddScoped<EquipeMetaMensalService>();
+builder.Services.AddScoped<ObservacaoService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Back_FindIT API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GTeams API", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

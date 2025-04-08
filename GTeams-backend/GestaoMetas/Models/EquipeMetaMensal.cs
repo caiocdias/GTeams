@@ -1,22 +1,28 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using GTeams_backend.Models.Enums;
+using GTeams_backend.GestaoPessoas.Models;
 
-namespace GTeams_backend.Models;
+namespace GTeams_backend.GestaoMetas.Models;
 
-public class DataPersonalizadaMedicao
+public class EquipeMetaMensal
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     
     [Required]
-    public DateOnly Data { get; set; }
-    [Required]
-    public TipoData TipoData { get; set; }
-    
+    [ForeignKey("Equipe")]
+    public int EquipeId { get; set; }
+    public Equipe Equipe { get; set; } = null!;
+
     [Required]
     [ForeignKey("IntervaloMedicao")]
     public int IntervaloMedicaoId { get; set; }
     public IntervaloMedicao IntervaloMedicao { get; set; } = null!;
+    
+    [Required]
+    public decimal MetaMensalNs { get; set; }
+    
+    [Required]
+    public decimal MetaMensalUs { get; set; }
 }

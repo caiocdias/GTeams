@@ -1,7 +1,7 @@
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.IntervaloMedicaoDtos;
 using GTeams_backend.Extensions;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoMetas.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.Services;

@@ -1,7 +1,8 @@
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.EquipeMetaMensalDtos;
 using GTeams_backend.Extensions;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoMetas.Models;
+using GTeams_backend.GestaoPessoas.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.Services;

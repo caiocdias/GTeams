@@ -1,6 +1,7 @@
 using GTeams_backend.Dtos.ColaboradorDtos;
 using GTeams_backend.Extensions;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoPessoas.Models;
+using GTeams_backend.GestaoPessoas.Services;
 using GTeams_backend.Services;
 using Microsoft.AspNetCore.Mvc;
 

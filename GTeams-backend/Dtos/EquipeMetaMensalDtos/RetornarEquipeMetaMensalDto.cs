@@ -1,5 +1,3 @@
-using GTeams_backend.Models;
-
 namespace GTeams_backend.Dtos.EquipeMetaMensalDtos;
 
 public class RetornarEquipeMetaMensalDto

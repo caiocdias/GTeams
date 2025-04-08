@@ -2,7 +2,7 @@ using GTeams_backend.Dtos.ColaboradorDtos;
 using GTeams_backend.Dtos.EmailDtos;
 using GTeams_backend.Dtos.EquipeDtos;
 using GTeams_backend.Dtos.MatriculaDtos;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoPessoas.Models;
 
 namespace GTeams_backend.Extensions;
 
@@ -26,12 +26,6 @@ public static class ColaboradorExtension
             {
                 Codigo = m.Codigo,
                 Descricao = m.Descricao
-            }).ToList(),
-            Equipes = colaborador.EquipesColaboradores.Select(ec => new RetornarEquipeDto
-            {
-                Id = ec.Equipe.Id,
-                Nome = ec.Equipe.Nome,
-                Ativo = ec.Equipe.Ativo
             }).ToList()
         };
     }

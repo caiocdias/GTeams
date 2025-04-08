@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using GTeams_backend.Dtos.EmailDtos;
 using GTeams_backend.Dtos.MatriculaDtos;
-using GTeams_backend.Models.Enums;
+using GTeams_backend.GestaoPessoas.Enums;
 
 namespace GTeams_backend.Dtos.ColaboradorDtos;
 

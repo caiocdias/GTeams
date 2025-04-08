@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
-using GTeams_backend.Models.Enums;
+using GTeams_backend.GestaoMetas.Models;
+using GTeams_backend.GestaoPessoas.Enums;
 
-namespace GTeams_backend.Models;
+namespace GTeams_backend.GestaoPessoas.Models;
 
 public class Colaborador
 {
@@ -31,9 +32,9 @@ public class Colaborador
     public Funcao Funcao { get; set; }
     
     public ICollection<Observacao> Observacoes { get; set; } = new List<Observacao>();
-    public ICollection<EquipeColaborador> EquipesColaboradores { get; set; } = new List<EquipeColaborador>();
     public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
-    public ICollection<DataPersonalizadaColaborador> DatasPersonalizadasColaborador { get; set; } = new List<DataPersonalizadaColaborador>();
+    public ICollection<ColaboradorEquipeMetaMensal> ColaboradorEquipeMetaMensal { get; set; } = new List<ColaboradorEquipeMetaMensal>();
+    public ICollection<DataPersonalizada> DatasPersonalizadasColaborador { get; set; } = new List<DataPersonalizada>();
     public ICollection<Email> Emails { get; set; } = new List<Email>();
     
     public void SetPassword(string password)

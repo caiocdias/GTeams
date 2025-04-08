@@ -1,5 +1,6 @@
 using System.Text;
 using GTeams_backend.Data;
+using GTeams_backend.GestaoPessoas.Services;
 using GTeams_backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,6 @@ builder.Services.AddScoped<EquipeService>();
 builder.Services.AddScoped<MatriculaService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IntervaloMedicaoService>();
-builder.Services.AddScoped<EquipeColaboradorService>();
 builder.Services.AddScoped<EquipeMetaMensalService>();
 
 builder.Services.AddControllers();

@@ -1,21 +1,21 @@
+using GTeams_backend.GestaoMetas.Models;
+using GTeams_backend.GestaoPessoas.Models;
 using Microsoft.EntityFrameworkCore;
-using GTeams_backend.Models;
 
 namespace GTeams_backend.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    //Teste
     public DbSet<Colaborador> Colaboradores { get; set; }
     public DbSet<Equipe> Equipes { get; set; }
-    public DbSet<EquipeColaborador> EquipesColaboradores { get; set; }
     public DbSet<EquipeMetaMensal> EquipesMetasMensais { get; set; }
     public DbSet<IntervaloMedicao> IntervalosMedicao { get; set; }
     public DbSet<Matricula> Matriculas { get; set; }
     public DbSet<Observacao> Observacoes { get; set; }
-    public DbSet<DataPersonalizadaColaborador> DatasPersonalizadasColaborador { get; set; }
-    public DbSet<DataPersonalizadaMedicao> DatasPersonalizadasMedicao { get; set; }
     public DbSet<Email> Emails { get; set; }
+    public DbSet<ColaboradorEquipeMetaMensal> ColaboradoresEquipesMetasMensais { get; set; }
+
+    public DbSet<DataPersonalizada> DatasPersonalizadas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,34 +25,33 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .Property(c => c.Funcao)
             .HasConversion<string>();
 
-        modelBuilder.Entity<DataPersonalizadaColaborador>()
-            .Property(d => d.TipoData)
-            .HasConversion<string>();
-
-        modelBuilder.Entity<DataPersonalizadaMedicao>()
-            .Property(d => d.TipoData)
-            .HasConversion<string>();
-
-        modelBuilder.Entity<EquipeColaborador>()
-            .HasKey(ec => ec.Id);
-
-        modelBuilder.Entity<EquipeColaborador>()
-            .HasOne(ec => ec.Colaborador)
-            .WithMany(c => c.EquipesColaboradores)
-            .HasForeignKey(ec => ec.ColaboradorId);
-
-        modelBuilder.Entity<EquipeColaborador>()
-            .HasOne(ec => ec.Equipe)
-            .WithMany(e => e.EquipesColaboradores)
-            .HasForeignKey(ec => ec.EquipeId);
-        
-        modelBuilder.Entity<EquipeColaborador>()
-            .HasIndex(ec => new { ec.ColaboradorId, ec.EquipeId })
-            .IsUnique();
-        
         modelBuilder.Entity<Matricula>()
             .HasIndex(m => m.Codigo)
             .IsUnique();
-    }
 
+        modelBuilder.Entity<ColaboradorEquipeMetaMensal>()
+            .HasIndex(c => new { c.ColaboradorId, c.EquipeMetaMensalId })
+            .IsUnique();
+
+        modelBuilder.Entity<DataPersonalizada>()
+            .Property(d => d.TipoData)
+            .HasConversion<string>();
+
+        modelBuilder.Entity<DataPersonalizada>()
+            .HasDiscriminator<string>("TipoEntidade")
+            .HasValue("Colaborador")
+            .HasValue("Medicao");
+
+        modelBuilder.Entity<DataPersonalizada>()
+            .HasOne(d => d.Colaborador)
+            .WithMany(c => c.DatasPersonalizadasColaborador)
+            .HasForeignKey(d => d.ColaboradorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<DataPersonalizada>()
+            .HasOne(d => d.IntervaloMedicao)
+            .WithMany(i => i.DatasPersonalizadasMedicao)
+            .HasForeignKey(d => d.IntervaloMedicaoId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
 }

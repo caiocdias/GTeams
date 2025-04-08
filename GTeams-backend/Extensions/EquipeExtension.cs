@@ -1,5 +1,5 @@
 using GTeams_backend.Dtos.EquipeDtos;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoPessoas.Models;
 
 namespace GTeams_backend.Extensions;
 

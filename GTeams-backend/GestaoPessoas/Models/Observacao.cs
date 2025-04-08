@@ -1,23 +1,23 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GTeams_backend.Models;
+namespace GTeams_backend.GestaoPessoas.Models;
 
-public class EquipeColaborador
+public class Observacao
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     
+    [StringLength(255)]
+    public string Descricao { get; set; } = string.Empty;
+    
     [Required]
     [ForeignKey("Colaborador")]
     public int ColaboradorId { get; set; }
+
     public Colaborador Colaborador { get; set; } = null!;
     
-    [Required]
-    [ForeignKey("Equipe")]
-    public int EquipeId { get; set; }
-    public Equipe Equipe { get; set; } = null!;
-    public bool IsLider { get; set; } = false;
-    public bool Ativo { get; set; } = true;
+    public DateOnly DataInicial { get; set; }
+    public DateOnly DataFinal { get; set; }
 }

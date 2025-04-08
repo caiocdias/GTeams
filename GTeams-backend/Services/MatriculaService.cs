@@ -1,6 +1,6 @@
 using GTeams_backend.Data;
 using GTeams_backend.Dtos.MatriculaDtos;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoPessoas.Models;
 using Microsoft.EntityFrameworkCore;
 namespace GTeams_backend.Services;
 

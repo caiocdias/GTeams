@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using GTeams_backend.Models.Enums;
+using GTeams_backend.GestaoMetas.Enums;
 
-namespace GTeams_backend.Models;
+namespace GTeams_backend.GestaoMetas.Models;
 
 public class IntervaloMedicao
 {
@@ -18,7 +18,7 @@ public class IntervaloMedicao
     [Required]
     public DateOnly DataFinal { get; set; }
     
-    public ICollection<DataPersonalizadaMedicao> DatasPersonalizadasMedicao { get; set; } = new List<DataPersonalizadaMedicao>();
+    public ICollection<DataPersonalizada> DatasPersonalizadasMedicao { get; set; } = new List<DataPersonalizada>();
     public ICollection<EquipeMetaMensal> EquipesMetasMensais { get; set; } = new List<EquipeMetaMensal>();
     
     public void GerarDatas()
@@ -28,7 +28,7 @@ public class IntervaloMedicao
 
         for (DateOnly data = DataInicial; data <= DataFinal; data = data.AddDays(1))
         {
-            DatasPersonalizadasMedicao.Add(new DataPersonalizadaMedicao
+            DatasPersonalizadasMedicao.Add(new DataPersonalizada
             {
                 Data = data,
                 TipoData = data.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday

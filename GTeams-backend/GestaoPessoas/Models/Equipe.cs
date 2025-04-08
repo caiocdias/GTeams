@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GTeams_backend.GestaoMetas.Models;
 
-namespace GTeams_backend.Models;
+namespace GTeams_backend.GestaoPessoas.Models;
 
 public class Equipe
 {
@@ -13,7 +14,6 @@ public class Equipe
     public string Nome { get; set; } = string.Empty;
     
     public bool Ativo { get; set; } = true;
-    
-    public ICollection<EquipeColaborador> EquipesColaboradores { get; set; } = new List<EquipeColaborador>();
+    public ICollection<ColaboradorEquipeMetaMensal> ColaboradoresEquipeMetaMensal { get; set; } = new List<ColaboradorEquipeMetaMensal>();
     public ICollection<EquipeMetaMensal> EquipesMetasMensais { get; set; } = new List<EquipeMetaMensal>();
 }

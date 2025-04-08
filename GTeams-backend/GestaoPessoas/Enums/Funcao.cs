@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace GTeams_backend.Models.Enums;
+namespace GTeams_backend.GestaoPessoas.Enums;
 
 public enum Funcao
 {

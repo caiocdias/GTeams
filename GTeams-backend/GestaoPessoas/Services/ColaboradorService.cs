@@ -3,10 +3,11 @@ using GTeams_backend.Dtos.ColaboradorDtos;
 using GTeams_backend.Dtos.EmailDtos;
 using GTeams_backend.Dtos.MatriculaDtos;
 using GTeams_backend.Extensions;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoPessoas.Models;
+using GTeams_backend.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace GTeams_backend.Services;
+namespace GTeams_backend.GestaoPessoas.Services;
 
 public class ColaboradorService(AppDbContext appDbContext, EmailService emailService, MatriculaService matriculaService)
 {
@@ -15,8 +16,6 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         List<Colaborador> colaboradores = await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
-            .Include(c => c.EquipesColaboradores)
-            .ThenInclude(ec => ec.Equipe)
             .ToListAsync();
 
         HashSet<string> matriculasInformadas = inserirColaboradorDto.Matriculas
@@ -75,8 +74,6 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         Colaborador? colaboradorComDados = await appDbContext.Colaboradores
             .Include(c => c.Emails)
             .Include(c => c.Matriculas)
-            .Include(c => c.EquipesColaboradores)
-            .ThenInclude(ec => ec.Equipe)
             .FirstOrDefaultAsync(c => c.Id == colaborador.Id);
 
         if (colaboradorComDados == null)
@@ -90,8 +87,6 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         return await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
-            .Include(c => c.EquipesColaboradores)
-            .ThenInclude(ec => ec.Equipe)
             .Include(c => c.DatasPersonalizadasColaborador)
             .Include(c => c.Observacoes)
             .FirstOrDefaultAsync(c => c.Id == colaboradorId);
@@ -117,8 +112,6 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         return await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
-            .Include(c => c.EquipesColaboradores)
-            .ThenInclude(ec => ec.Equipe)
             .ToListAsync();
     }
     
@@ -127,8 +120,6 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         var colaborador = await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
-            .Include(c => c.EquipesColaboradores)
-            .ThenInclude(ec => ec.Equipe)
             .Include(c => c.DatasPersonalizadasColaborador)
             .Include(c => c.Observacoes)
             .FirstOrDefaultAsync(c => c.Matriculas.Any(m => m.Codigo.Trim().ToLower() == matricula.Trim().ToLower()));

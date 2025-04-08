@@ -1,20 +1,23 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using GTeams_backend.Models.Enums;
 
-namespace GTeams_backend.Models;
+namespace GTeams_backend.GestaoPessoas.Models;
 
-public class DataPersonalizadaColaborador
+public class Email
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-
+    
     [Required]
-    public DateOnly Data { get; set; }
-
+    [StringLength(50)]
+    public string Descricao { get; set; } = string.Empty;
+    
     [Required]
-    public TipoData TipoData { get; set; }
-
+    [EmailAddress]
+    [StringLength(50)]
+    public string Endereco { get; set; } = string.Empty;
+    
     [Required]
     [ForeignKey("Colaborador")]
     public int ColaboradorId { get; set; }

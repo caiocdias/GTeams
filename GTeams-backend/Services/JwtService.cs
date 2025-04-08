@@ -1,7 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoPessoas.Models;
 using Microsoft.IdentityModel.Tokens;
 
 

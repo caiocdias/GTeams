@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GTeams_backend.Models;
+namespace GTeams_backend.GestaoPessoas.Models;
 
 public class Matricula
 {

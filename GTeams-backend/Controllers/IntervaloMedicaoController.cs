@@ -1,6 +1,6 @@
 using GTeams_backend.Dtos.IntervaloMedicaoDtos;
 using GTeams_backend.Extensions;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoMetas.Models;
 using GTeams_backend.Services;
 using Microsoft.AspNetCore.Mvc;
 

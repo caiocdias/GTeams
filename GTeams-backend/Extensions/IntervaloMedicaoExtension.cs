@@ -1,6 +1,6 @@
 using GTeams_backend.Dtos.DataPersonalizadaMedicaoDtos;
 using GTeams_backend.Dtos.IntervaloMedicaoDtos;
-using GTeams_backend.Models;
+using GTeams_backend.GestaoMetas.Models;
 
 namespace GTeams_backend.Extensions;
 

@@ -12,38 +12,17 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
 {
     public async Task<RetornarColaboradorDto> InserirColaboradorAsync(InserirColaboradorDto inserirColaboradorDto)
     {
-        List<Colaborador> colaboradores = await appDbContext.Colaboradores
-            .Include(c => c.Matriculas)
-            .Include(c => c.Emails)
-            .ToListAsync();
+        Colaborador? existente = await ObterColaboradorPorUserAsync(inserirColaboradorDto.User);
 
-        HashSet<string> matriculasInformadas = inserirColaboradorDto.Matriculas
-            .Select(m => m.Codigo.Trim().ToLower())
-            .ToHashSet();
-
-        foreach (Colaborador existente in colaboradores)
+        if (existente != null )
         {
-            bool nomesIguais = existente.Nome.Trim().ToLower() == inserirColaboradorDto.Nome.Trim().ToLower();
-            bool matriculaCoincidente = existente.Matriculas.Any(m => matriculasInformadas.Contains(m.Codigo.Trim().ToLower()));
-
-            if (nomesIguais && matriculaCoincidente)
-            {
-                if (existente.Ativo)
-                    throw new InvalidOperationException("Já existe um colaborador com o mesmo nome e matrícula no sistema.");
-                
-                existente.Ativo = true;
-                existente.Funcao = inserirColaboradorDto.Funcao;
-                existente.SetPassword(inserirColaboradorDto.Password);
-
-                await appDbContext.SaveChangesAsync();
-
-                return existente.ToReturnDto();
-            }
+                throw new InvalidOperationException("Colaborador já existe no sistema.");
         }
         
         Colaborador colaborador = new Colaborador
         {
             Nome = inserirColaboradorDto.Nome,
+            User = inserirColaboradorDto.User,
             Cpf = inserirColaboradorDto.Cpf,
             Funcao = inserirColaboradorDto.Funcao
         };
@@ -70,10 +49,7 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         await appDbContext.SaveChangesAsync();
 
         // Recuperar colaborador completo
-        Colaborador? colaboradorComDados = await appDbContext.Colaboradores
-            .Include(c => c.Emails)
-            .Include(c => c.Matriculas)
-            .FirstOrDefaultAsync(c => c.Id == colaborador.Id);
+        Colaborador? colaboradorComDados = await ObterColaboradorPorUserAsync(colaborador.User);
 
         if (colaboradorComDados == null)
             throw new InvalidOperationException("Erro ao recuperar colaborador.");
@@ -114,14 +90,14 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
             .ToListAsync();
     }
     
-    public async Task<Colaborador?> ObterColaboradorPorMatriculaAsync(string matricula)
+    public async Task<Colaborador?> ObterColaboradorPorUserAsync(string user)
     {
         var colaborador = await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
             .Include(c => c.DatasPersonalizadasColaborador)
             .Include(c => c.Observacoes)
-            .FirstOrDefaultAsync(c => c.Matriculas.Any(m => m.Codigo.Trim().ToLower() == matricula.Trim().ToLower()));
+            .FirstOrDefaultAsync(c => c.User.Trim().ToLower() == user.Trim().ToLower());
 
         if (colaborador is null)
             return null;

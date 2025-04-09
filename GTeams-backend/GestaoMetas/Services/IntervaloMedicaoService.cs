@@ -8,18 +8,17 @@ namespace GTeams_backend.GestaoMetas.Services;
 
 public class IntervaloMedicaoService(AppDbContext appDbContext)
 {
-    public async Task<RetornarIntervaloMedicaoDto> InserirIntervaloMedicao(InserirIntervaloMedicaoDto intervaloMedicao)
+    public async Task<RetornarIntervaloMedicaoDto> InserirIntervaloMedicao(InserirIntervaloMedicaoDto inserirIntervaloMedicaoDto)
     {
-        IntervaloMedicao? buscaIntervaloMedicao = await appDbContext.IntervalosMedicao.FirstOrDefaultAsync(i => i.Nome.ToLower() == intervaloMedicao.Nome.ToLower());
+        IntervaloMedicao? buscaIntervaloMedicao = await ObterIntervaloMedicaoPorNome(inserirIntervaloMedicaoDto.Nome);
         if (buscaIntervaloMedicao != null)
             throw new InvalidOperationException("O intervalo de medição já está cadastrada.");
-        if (intervaloMedicao.DataInicial > intervaloMedicao.DataFinal)
-            throw new InvalidOperationException("A data inicial não pode ser maior que a data final.");
+
         IntervaloMedicao novoIntervaloMedicao = new IntervaloMedicao
         {
-            Nome = intervaloMedicao.Nome,
-            DataInicial = intervaloMedicao.DataInicial,
-            DataFinal = intervaloMedicao.DataFinal
+            Nome = inserirIntervaloMedicaoDto.Nome,
+            DataInicial = inserirIntervaloMedicaoDto.DataInicial,
+            DataFinal = inserirIntervaloMedicaoDto.DataFinal
         };
         novoIntervaloMedicao.GerarDatas();
         
@@ -37,6 +36,13 @@ public class IntervaloMedicaoService(AppDbContext appDbContext)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
 
+    public async Task<IntervaloMedicao?> ObterIntervaloMedicaoPorNome(string nome)
+    {
+        return await appDbContext.IntervalosMedicao
+            .Include(i => i.DatasPersonalizadasMedicao)
+            .Include(i => i.EquipesMetasMensais)
+            .FirstOrDefaultAsync(i => i.Nome.ToLower() == nome.ToLower());
+    }
     public async Task<List<IntervaloMedicao>> ObterTodosIntervalosMedicao()
     {
         return await appDbContext.IntervalosMedicao

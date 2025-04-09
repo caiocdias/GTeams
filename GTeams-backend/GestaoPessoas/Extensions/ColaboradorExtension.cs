@@ -13,6 +13,7 @@ public static class ColaboradorExtension
         {
             Id = colaborador.Id,
             Nome = colaborador.Nome,
+            User = colaborador.User,
             Cpf = colaborador.Cpf,
             Ativo = colaborador.Ativo,
             Funcao = colaborador.Funcao.ToString(),

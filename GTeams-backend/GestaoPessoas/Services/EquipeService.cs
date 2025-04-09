@@ -7,27 +7,18 @@ namespace GTeams_backend.GestaoPessoas.Services;
 
 public class EquipeService(AppDbContext appDbContext)
 {
-    public async Task<RetornarEquipeDto> InserirEquipe(InserirEquipeDto equipe)
+    public async Task<RetornarEquipeDto> InserirEquipe(InserirEquipeDto inserirEquipeDto)
     {
-        Equipe? buscaEquipe = await appDbContext.Equipes.FirstOrDefaultAsync(e => e.Nome.ToLower() == equipe.Nome.ToLower());
-
-        if (buscaEquipe is { Ativo: false })
+        Equipe? buscaEquipe = await ObterEquipePorNomeAsync(inserirEquipeDto.Nome);
+        
+        if (buscaEquipe != null)
         {
-            buscaEquipe.Ativo = true;
-            await appDbContext.SaveChangesAsync();
-            return new RetornarEquipeDto
-            {
-                Id = buscaEquipe.Id,
-                Nome = buscaEquipe.Nome,
-                Ativo = buscaEquipe.Ativo,
-            };
+            throw new InvalidOperationException("Está equipe já está cadastrada.");
         }
-        else if (buscaEquipe != null)
-            throw new InvalidOperationException("Esta equipe já está cadastrada.");
         
         Equipe novaEquipe = new Equipe
         {
-            Nome = equipe.Nome
+            Nome = inserirEquipeDto.Nome
         };
         
         await appDbContext.Equipes.AddAsync(novaEquipe);
@@ -65,6 +56,12 @@ public class EquipeService(AppDbContext appDbContext)
     public async Task<Equipe?> ObterEquipePorIdAsync(int equipeId)
     {
         Equipe? equipe = await appDbContext.Equipes.FindAsync(equipeId);
+        return equipe;
+    }
+
+    public async Task<Equipe?> ObterEquipePorNomeAsync(string nome)
+    {
+        Equipe? equipe = await appDbContext.Equipes.FirstOrDefaultAsync(e => e.Nome.ToLower() == nome.ToLower());
         return equipe;
     }
     

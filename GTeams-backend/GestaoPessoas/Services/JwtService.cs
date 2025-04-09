@@ -6,29 +6,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GTeams_backend.GestaoPessoas.Services;
 
-public class JwtService
+public class JwtService(IConfiguration config)
 {
-    private readonly string _secretKey;
-    private readonly string _issuer;
-    private readonly string _audience;
+    private readonly string _secretKey = config["JwtSettings:Secret"] ?? throw new InvalidOperationException("JWT Secret is missing.");
+    private readonly string _issuer = config["JwtSettings:Issuer"] ?? "GTeams";
+    private readonly string _audience = config["JwtSettings:Audience"] ?? "GTeamsColaboradores";
 
-    public JwtService(IConfiguration config)
-    {
-        _secretKey = config["JwtSettings:Secret"] ?? throw new InvalidOperationException("JWT Secret is missing.");
-        _issuer = config["JwtSettings:Issuer"] ?? "GTeams";
-        _audience = config["JwtSettings:Audience"] ?? "GTeamsColaboradores";
-    }
-    
     public string? GenerateToken(Colaborador colaborador)
     {
-        var email = colaborador.Emails.FirstOrDefault()?.Endereco ?? "";
-        if (email == string.Empty)
-            return null;
-            
         var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, colaborador.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, email),
+            new Claim("user", colaborador.User),
             new Claim("cpf", colaborador.Cpf),
             new Claim("funcao", colaborador.Funcao.ToString()),
         };

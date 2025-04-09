@@ -76,7 +76,7 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
     {
         try
         {
-            Colaborador? user = await colaboradorService.ObterColaboradorPorMatriculaAsync(loginDto.Matricula);
+            Colaborador? user = await colaboradorService.ObterColaboradorPorUserAsync(loginDto.User);
             if (user == null || !user.ValidatePassword(loginDto.Password))
                 return Unauthorized(new { message = "E-mail ou senha inválidos" });
 

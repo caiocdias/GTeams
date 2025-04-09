@@ -20,6 +20,11 @@ public class Colaborador
     public string Nome { get; set; } = string.Empty;
     
     [Required]
+    [StringLength(50)]
+    [RegularExpression(@"^[a-zA-Z0-9._-]{3,50}$", ErrorMessage = "O nome de usuário deve conter apenas letras, números, pontos, hífens ou underscores, e ter entre 3 e 50 caracteres.")]
+    public string User { get; set; } = string.Empty;
+    
+    [Required]
     public byte[] PasswordHash { get; set; } = new byte[0];
     
     [StringLength(14)]

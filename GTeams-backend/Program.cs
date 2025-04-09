@@ -19,7 +19,6 @@ builder.Services.AddScoped<MatriculaService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IntervaloMedicaoService>();
 builder.Services.AddScoped<EquipeMetaMensalService>();
-builder.Services.AddScoped<ObservacaoService>();
 
 
 builder.Services.AddControllers();

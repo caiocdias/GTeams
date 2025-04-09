@@ -1,7 +1,7 @@
-using GTeams_backend.Dtos.EquipeDtos;
-using GTeams_backend.Extensions;
+using GTeams_backend.GestaoPessoas.Dtos.EquipeDtos;
+using GTeams_backend.GestaoPessoas.Extensions;
 using GTeams_backend.GestaoPessoas.Models;
-using GTeams_backend.Services;
+using GTeams_backend.GestaoPessoas.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GTeams_backend.Controllers;

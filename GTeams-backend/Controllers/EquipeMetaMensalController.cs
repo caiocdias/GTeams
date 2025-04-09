@@ -1,7 +1,7 @@
-using GTeams_backend.Dtos.EquipeMetaMensalDtos;
-using GTeams_backend.Extensions;
+using GTeams_backend.GestaoMetas.Dtos.EquipeMetaMensalDtos;
+using GTeams_backend.GestaoMetas.Extensions;
 using GTeams_backend.GestaoMetas.Models;
-using GTeams_backend.Services;
+using GTeams_backend.GestaoMetas.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GTeams_backend.Controllers;

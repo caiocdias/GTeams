@@ -1,7 +1,7 @@
 using System.Text;
 using GTeams_backend.Data;
+using GTeams_backend.GestaoMetas.Services;
 using GTeams_backend.GestaoPessoas.Services;
-using GTeams_backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

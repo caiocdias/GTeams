@@ -1,10 +1,9 @@
 using GTeams_backend.Data;
-using GTeams_backend.Dtos.ColaboradorDtos;
-using GTeams_backend.Dtos.EmailDtos;
-using GTeams_backend.Dtos.MatriculaDtos;
-using GTeams_backend.Extensions;
+using GTeams_backend.GestaoPessoas.Dtos.ColaboradorDtos;
+using GTeams_backend.GestaoPessoas.Dtos.EmailDtos;
+using GTeams_backend.GestaoPessoas.Dtos.MatriculaDtos;
+using GTeams_backend.GestaoPessoas.Extensions;
 using GTeams_backend.GestaoPessoas.Models;
-using GTeams_backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.GestaoPessoas.Services;

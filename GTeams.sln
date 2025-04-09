@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTeams-backend", "GTeams-backend\GTeams-backend.csproj", "{5548CF53-9ACE-4921-B70F-CF438E69F443}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTeams-frontend", "GTeams-frontend\GTeams-frontend.csproj", "{33652248-F6AF-42B9-8E60-ACF23ED0AC41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{5548CF53-9ACE-4921-B70F-CF438E69F443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5548CF53-9ACE-4921-B70F-CF438E69F443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5548CF53-9ACE-4921-B70F-CF438E69F443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33652248-F6AF-42B9-8E60-ACF23ED0AC41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33652248-F6AF-42B9-8E60-ACF23ED0AC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33652248-F6AF-42B9-8E60-ACF23ED0AC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33652248-F6AF-42B9-8E60-ACF23ED0AC41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

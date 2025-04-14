@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace GTeams_backend.GestaoPessoas.Dtos.EquipeDtos;
 
 public class RetornarEquipeDto

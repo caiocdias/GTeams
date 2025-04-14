@@ -1,9 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-using GTeams_backend.GestaoMetas.Dtos.ColaboradorEquipeMetaMensalDtos;
-using GTeams_backend.GestaoMetas.Models;
 using GTeams_backend.GestaoPessoas.Dtos.EmailDtos;
 using GTeams_backend.GestaoPessoas.Dtos.MatriculaDtos;
-using GTeams_backend.GestaoPessoas.Dtos.ObservacaoDtos;
 
 namespace GTeams_backend.GestaoPessoas.Dtos.ColaboradorDtos;
 

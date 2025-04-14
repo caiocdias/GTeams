@@ -4,7 +4,7 @@ using GTeams_backend.GestaoPessoas.Models;
 using GTeams_backend.GestaoPessoas.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GTeams_backend.Controllers;
+namespace GTeams_backend.GestaoPessoas.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

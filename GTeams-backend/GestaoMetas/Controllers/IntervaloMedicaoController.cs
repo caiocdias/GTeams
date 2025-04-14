@@ -4,7 +4,7 @@ using GTeams_backend.GestaoMetas.Models;
 using GTeams_backend.GestaoMetas.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GTeams_backend.Controllers;
+namespace GTeams_backend.GestaoMetas.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

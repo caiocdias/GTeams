@@ -10,8 +10,8 @@ namespace GTeams_backend.GestaoPessoas.Controllers;
 [ApiController]
 public class EquipeController(EquipeService equipeService) : ControllerBase
 {
-    [HttpPost("InserirEquipe")]
-    public async Task<IActionResult> InserirEquipe([FromBody] InserirEquipeDto? equipeDto)
+    [HttpPost("Inserir")]
+    public async Task<IActionResult> Inserir([FromBody] InserirEquipeDto? equipeDto)
     {
         try
         {
@@ -27,8 +27,8 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
         }
     }
 
-    [HttpGet("ObterEquipePorId/{id}")]
-    public async Task<IActionResult> ObterEquipePorId(int id)
+    [HttpGet("ObterPorId/{id}")]
+    public async Task<IActionResult> ObterPorId(int id)
     {
         try
         {
@@ -44,8 +44,8 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
         }
     }
 
-    [HttpDelete("DesativarEquipe/{id}")]
-    public async Task<IActionResult> DesativarEquipe(int id)
+    [HttpDelete("Desativar/{id}")]
+    public async Task<IActionResult> Desativar(int id)
     {
         try
         {
@@ -58,8 +58,8 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
         }
     }
 
-    [HttpGet("ObterTodasEquipes")]
-    public async Task<IActionResult> ObterTodasEquipes()
+    [HttpGet("ObterTodas")]
+    public async Task<IActionResult> ObterTodas()
     {
         try
         {

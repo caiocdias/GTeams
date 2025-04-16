@@ -10,8 +10,8 @@ namespace GTeams_backend.GestaoMetas.Controllers;
 [ApiController]
 public class EquipeMetaMensalController(EquipeMetaMensalService equipeMetaMensalService) : ControllerBase
 {
-    [HttpPost("InserirEquipeMetaMensal")]
-    public async Task<IActionResult> InserirEquipeMetaMensal([FromBody] InserirEquipeMetaMensalDto inserirEquipeMetaMensalDto)
+    [HttpPost("Inserir")]
+    public async Task<IActionResult> Inserir([FromBody] InserirEquipeMetaMensalDto inserirEquipeMetaMensalDto)
     {
         try
         {
@@ -24,8 +24,8 @@ public class EquipeMetaMensalController(EquipeMetaMensalService equipeMetaMensal
         }
     }
 
-    [HttpGet("ObterEquipeMetaMensalPorId")]
-    public async Task<IActionResult> ObterEquipeMetaMensalPorId([FromBody] int equipeId, int intervaloMedicaoId)
+    [HttpGet("ObterPorId")]
+    public async Task<IActionResult> ObterPorId([FromBody] int equipeId, int intervaloMedicaoId)
     {
         try
         {
@@ -41,8 +41,8 @@ public class EquipeMetaMensalController(EquipeMetaMensalService equipeMetaMensal
         }
     }
 
-    [HttpGet("ObterTodosEquipeMetaMensal")]
-    public async Task<IActionResult> ObterTodosEquipeMetaMensal()
+    [HttpGet("ObterTodos")]
+    public async Task<IActionResult> ObterTodos()
     {
         try
         {
@@ -57,8 +57,8 @@ public class EquipeMetaMensalController(EquipeMetaMensalService equipeMetaMensal
         }
     }
 
-    [HttpDelete("DeletarEquipeMetaMensal")]
-    public async Task<IActionResult> DeletarEquipeMetaMensal([FromBody] int equipeId, int intervaloMedicaoId)
+    [HttpDelete("Deletar")]
+    public async Task<IActionResult> Deletar([FromBody] int equipeId, int intervaloMedicaoId)
     {
         try
         {

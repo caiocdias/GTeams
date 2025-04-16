@@ -10,8 +10,8 @@ namespace GTeams_backend.GestaoMetas.Controllers;
 [ApiController]
 public class IntervaloMedicaoController(IntervaloMedicaoService intervaloMedicaoService) : ControllerBase
 {
-    [HttpPost("InserirIntervaloMedicao")]
-    public async Task<IActionResult> InserirIntervaloMedicao([FromBody] InserirIntervaloMedicaoDto? inserirIntervaloMedicaoDto)
+    [HttpPost("Inserir")]
+    public async Task<IActionResult> Inserir([FromBody] InserirIntervaloMedicaoDto? inserirIntervaloMedicaoDto)
     {
         try
         {
@@ -27,8 +27,8 @@ public class IntervaloMedicaoController(IntervaloMedicaoService intervaloMedicao
         }
     }
 
-    [HttpGet("ObterIntervaloMedicaoPorId/{id}")]
-    public async Task<IActionResult> ObterIntervaloMedicaoPorId(int id)
+    [HttpGet("ObterPorId/{id}")]
+    public async Task<IActionResult> ObterPorId(int id)
     {
         try
         {
@@ -45,8 +45,8 @@ public class IntervaloMedicaoController(IntervaloMedicaoService intervaloMedicao
         
     }
 
-    [HttpGet("ObterTodosIntervaloMedicao")]
-    public async Task<IActionResult> ObterTodosIntervaloMedicao()
+    [HttpGet("ObterTodos")]
+    public async Task<IActionResult> ObterTodos()
     {
         try
         {
@@ -60,8 +60,8 @@ public class IntervaloMedicaoController(IntervaloMedicaoService intervaloMedicao
         }
     }
 
-    [HttpDelete("DeletarIntervaloMedicao/{id}")]
-    public async Task<IActionResult> DeletarIntervaloMedicao(int id)
+    [HttpDelete("Deletar/{id}")]
+    public async Task<IActionResult> Deletar(int id)
     {
         try
         {

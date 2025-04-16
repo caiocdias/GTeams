@@ -10,8 +10,8 @@ namespace GTeams_backend.GestaoPessoas.Controllers;
 [ApiController]
 public class ColaboradorController(ColaboradorService colaboradorService, JwtService jwtService) : ControllerBase
 {
-    [HttpPost("InserirColaborador")]
-    public async Task<IActionResult> InserirColaborador([FromBody] InserirColaboradorDto? inserirColaboradorDto)
+    [HttpPost("Inserir")]
+    public async Task<IActionResult> Inserir([FromBody] InserirColaboradorDto? inserirColaboradorDto)
     {
         try
         {
@@ -27,8 +27,8 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
         }
     }
 
-    [HttpGet("ObterColaboradorPorId/{idColaborador}")]
-    public async Task<IActionResult> ObterColaboradorPorId(int idColaborador)
+    [HttpGet("ObterPorId/{idColaborador}")]
+    public async Task<IActionResult> ObterPorId(int idColaborador)
     {
         Colaborador? colaborador = await colaboradorService.ObterColaboradorPorIdAsync(idColaborador);
         if (colaborador is null)
@@ -37,8 +37,8 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
         return Ok(colaborador.ToReturnDto());
     }
 
-    [HttpGet("ObterTodosColaboradores")]
-    public async Task<IActionResult> ObterTodosColaboradores()
+    [HttpGet("ObterTodos")]
+    public async Task<IActionResult> ObterTodos()
     {
         try
         {
@@ -56,8 +56,8 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
         }
     }
 
-    [HttpDelete("DesativarColaborador/{idColaborador}")]
-    public async Task<IActionResult> DesativarColaborador(int idColaborador)
+    [HttpDelete("Desativar/{idColaborador}")]
+    public async Task<IActionResult> Desativar(int idColaborador)
     {
         try
         {

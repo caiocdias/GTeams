@@ -19,7 +19,6 @@ public class IntervaloMedicao
     public DateOnly DataFinal { get; set; }
     
     public ICollection<DataPersonalizada> DatasPersonalizadasMedicao { get; set; } = new List<DataPersonalizada>();
-    public ICollection<EquipeMetaMensal> EquipesMetasMensais { get; set; } = new List<EquipeMetaMensal>();
     
     public void GerarDatas()
     {

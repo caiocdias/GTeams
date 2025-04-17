@@ -32,7 +32,6 @@ public class IntervaloMedicaoService(AppDbContext appDbContext)
     {
         return await appDbContext.IntervalosMedicao
             .Include(i => i.DatasPersonalizadasMedicao)
-            .Include(i => i.EquipesMetasMensais)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
 
@@ -40,14 +39,12 @@ public class IntervaloMedicaoService(AppDbContext appDbContext)
     {
         return await appDbContext.IntervalosMedicao
             .Include(i => i.DatasPersonalizadasMedicao)
-            .Include(i => i.EquipesMetasMensais)
             .FirstOrDefaultAsync(i => i.Nome.ToLower() == nome.ToLower());
     }
     public async Task<List<IntervaloMedicao>> ObterTodosIntervalosMedicao()
     {
         return await appDbContext.IntervalosMedicao
             .Include(i => i.DatasPersonalizadasMedicao)
-            .Include(i => i.EquipesMetasMensais)
             .ToListAsync();
     }
 

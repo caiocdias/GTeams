@@ -1,3 +1,4 @@
+using GTeams_backend.CrossCutting.Authentication;
 using GTeams_backend.GestaoPessoas.Dtos.ColaboradorDtos;
 using GTeams_backend.GestaoPessoas.Extensions;
 using GTeams_backend.GestaoPessoas.Models;

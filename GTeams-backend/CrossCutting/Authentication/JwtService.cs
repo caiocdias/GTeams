@@ -4,7 +4,7 @@ using System.Text;
 using GTeams_backend.GestaoPessoas.Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GTeams_backend.GestaoPessoas.Services;
+namespace GTeams_backend.CrossCutting.Authentication;
 
 public class JwtService(IConfiguration config)
 {

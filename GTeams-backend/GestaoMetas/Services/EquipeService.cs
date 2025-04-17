@@ -1,9 +1,9 @@
 using GTeams_backend.Data;
-using GTeams_backend.GestaoPessoas.Dtos.EquipeDtos;
-using GTeams_backend.GestaoPessoas.Models;
+using GTeams_backend.GestaoMetas.Dtos.EquipeDtos;
+using GTeams_backend.GestaoMetas.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace GTeams_backend.GestaoPessoas.Services;
+namespace GTeams_backend.GestaoMetas.Services;
 
 public class EquipeService(AppDbContext appDbContext)
 {

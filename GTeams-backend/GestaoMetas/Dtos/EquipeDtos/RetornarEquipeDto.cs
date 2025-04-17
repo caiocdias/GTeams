@@ -1,4 +1,4 @@
-namespace GTeams_backend.GestaoPessoas.Dtos.EquipeDtos;
+namespace GTeams_backend.GestaoMetas.Dtos.EquipeDtos;
 
 public class RetornarEquipeDto
 {

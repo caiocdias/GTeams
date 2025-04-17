@@ -1,7 +1,7 @@
-using GTeams_backend.GestaoPessoas.Dtos.EquipeDtos;
-using GTeams_backend.GestaoPessoas.Models;
+using GTeams_backend.GestaoMetas.Dtos.EquipeDtos;
+using GTeams_backend.GestaoMetas.Models;
 
-namespace GTeams_backend.GestaoPessoas.Extensions;
+namespace GTeams_backend.GestaoMetas.Extensions;
 
 public static class EquipeExtension
 {

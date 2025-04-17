@@ -8,12 +8,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Colaborador> Colaboradores { get; set; }
     public DbSet<Equipe> Equipes { get; set; }
-    public DbSet<EquipeMetaMensal> EquipesMetasMensais { get; set; }
     public DbSet<IntervaloMedicao> IntervalosMedicao { get; set; }
     public DbSet<Matricula> Matriculas { get; set; }
     public DbSet<Observacao> Observacoes { get; set; }
     public DbSet<Email> Emails { get; set; }
-    public DbSet<ColaboradorEquipeMetaMensal> ColaboradoresEquipesMetasMensais { get; set; }
 
     public DbSet<DataPersonalizada> DatasPersonalizadas { get; set; }
 
@@ -27,10 +25,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.Entity<Matricula>()
             .HasIndex(m => m.Codigo)
-            .IsUnique();
-
-        modelBuilder.Entity<ColaboradorEquipeMetaMensal>()
-            .HasIndex(c => new { c.ColaboradorId, c.EquipeMetaMensalId })
             .IsUnique();
 
         modelBuilder.Entity<DataPersonalizada>()

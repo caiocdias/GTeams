@@ -65,5 +65,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasOne(mcm => mcm.IntervaloMedicao)
             .WithMany()
             .HasForeignKey(mcm => mcm.IntervaloMedicaoId);
+        
+        modelBuilder.Entity<MetaColaboradorMedicao>()
+            .HasIndex(m => new { m.ColaboradorId, m.EquipeId, m.IntervaloMedicaoId })
+            .IsUnique();
     }
 }

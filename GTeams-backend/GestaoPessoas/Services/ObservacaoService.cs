@@ -7,7 +7,7 @@ namespace GTeams_backend.GestaoPessoas.Services;
 
 public class ObservacaoService(AppDbContext appDbContext, ColaboradorService colaboradorService)
 {
-    public async Task<RetornarObservacaoDto> InserirObservacaoAsync(InserirObservacaoDto inserirObservacaoDto)
+    public async Task<RetornarObservacaoDto> InserirAsync(InserirObservacaoDto inserirObservacaoDto)
     {
         Colaborador? colaborador = await colaboradorService.ObterColaboradorPorIdAsync(inserirObservacaoDto.ColaboradorId);
         if (colaborador == null)

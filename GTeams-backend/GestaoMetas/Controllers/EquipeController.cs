@@ -18,7 +18,7 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
             if (equipeDto == null || !ModelState.IsValid)
                 return BadRequest();
 
-            RetornarEquipeDto retornarEquipeDto = await equipeService.InserirEquipe(equipeDto);
+            RetornarEquipeDto retornarEquipeDto = await equipeService.InserirAsync(equipeDto);
             return Ok(retornarEquipeDto);
         }
         catch (Exception e)
@@ -32,7 +32,7 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
     {
         try
         {
-            Equipe? equipe = await equipeService.ObterEquipePorIdAsync(id);
+            Equipe? equipe = await equipeService.ObterPorIdAsync(id);
             if (equipe == null)
                 return NotFound();
 
@@ -49,7 +49,7 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
     {
         try
         {
-            RetornarEquipeDto retornarEquipeDto = await equipeService.DesativarEquipeAsync(id);
+            RetornarEquipeDto retornarEquipeDto = await equipeService.DesativarAsync(id);
             return Ok(retornarEquipeDto);
         }
         catch (Exception e)
@@ -63,7 +63,7 @@ public class EquipeController(EquipeService equipeService) : ControllerBase
     {
         try
         {
-            List<Equipe> equipes = await equipeService.ObterTodasEquipesAsync();
+            List<Equipe> equipes = await equipeService.ObterTodasAsync();
             List<RetornarEquipeDto> equipesDto = equipes.Select(e => e.ToReturnDto()).ToList();
             return Ok(equipesDto);
         }

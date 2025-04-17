@@ -7,7 +7,7 @@ namespace GTeams_backend.GestaoPessoas.Services;
 
 public class EmailService(AppDbContext appDbContext)
 {
-    public async Task<bool> InserirEmailAsync(InserirEmailDto emailDto)
+    public async Task<bool> InserirAsync(InserirEmailDto emailDto)
     {
         Colaborador? colaborador = await appDbContext.Colaboradores
             .Include(c => c.Emails)
@@ -36,7 +36,7 @@ public class EmailService(AppDbContext appDbContext)
         return true;
     }
     
-    public async Task<bool> DeletarEmailAsync(int emailId)
+    public async Task<bool> DeletarAsync(int emailId)
     {
         Email? email = await appDbContext.Emails
             .FirstOrDefaultAsync(e => e.Id == emailId);
@@ -50,7 +50,7 @@ public class EmailService(AppDbContext appDbContext)
         return true;
     }
     
-    public async Task<Email?> ObterEmailPorIdAsync(int emailId)
+    public async Task<Email?> ObterPorIdAsync(int emailId)
     {
         Email? email = await appDbContext.Emails
             .FirstOrDefaultAsync(e => e.Id == emailId);

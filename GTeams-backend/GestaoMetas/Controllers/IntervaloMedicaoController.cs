@@ -18,7 +18,7 @@ public class IntervaloMedicaoController(IntervaloMedicaoService intervaloMedicao
             if (inserirIntervaloMedicaoDto == null || !ModelState.IsValid)
                 return BadRequest();
             
-            RetornarIntervaloMedicaoDto retornarIntervaloMedicaoDto = await intervaloMedicaoService.InserirIntervaloMedicao(inserirIntervaloMedicaoDto);
+            RetornarIntervaloMedicaoDto retornarIntervaloMedicaoDto = await intervaloMedicaoService.InserirAsync(inserirIntervaloMedicaoDto);
             return Ok(retornarIntervaloMedicaoDto);
         }
         catch (Exception e)
@@ -32,7 +32,7 @@ public class IntervaloMedicaoController(IntervaloMedicaoService intervaloMedicao
     {
         try
         {
-            IntervaloMedicao? intervaloMedicao  = await intervaloMedicaoService.ObterIntervaloMedicaoPorId(id);
+            IntervaloMedicao? intervaloMedicao  = await intervaloMedicaoService.ObterPorIdAsync(id);
             if (intervaloMedicao == null)
                 return NotFound();
             
@@ -65,7 +65,7 @@ public class IntervaloMedicaoController(IntervaloMedicaoService intervaloMedicao
     {
         try
         {
-            if (await intervaloMedicaoService.DeletarInvervaloMedicaoAsync(id))
+            if (await intervaloMedicaoService.DeletarAsync(id))
                 return Ok();
             
             return BadRequest();

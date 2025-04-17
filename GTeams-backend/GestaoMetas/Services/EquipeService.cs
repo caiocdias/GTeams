@@ -7,9 +7,9 @@ namespace GTeams_backend.GestaoMetas.Services;
 
 public class EquipeService(AppDbContext appDbContext)
 {
-    public async Task<RetornarEquipeDto> InserirEquipe(InserirEquipeDto inserirEquipeDto)
+    public async Task<RetornarEquipeDto> InserirAsync(InserirEquipeDto inserirEquipeDto)
     {
-        Equipe? buscaEquipe = await ObterEquipePorNomeAsync(inserirEquipeDto.Nome);
+        Equipe? buscaEquipe = await ObterPorNomeAsync(inserirEquipeDto.Nome);
         
         if (buscaEquipe != null)
         {
@@ -32,7 +32,7 @@ public class EquipeService(AppDbContext appDbContext)
         };
     }
 
-    public async Task<RetornarEquipeDto> DesativarEquipeAsync(int equipeId)
+    public async Task<RetornarEquipeDto> DesativarAsync(int equipeId)
     {
         Equipe? equipe = await appDbContext.Equipes.FindAsync(equipeId);
 
@@ -53,19 +53,19 @@ public class EquipeService(AppDbContext appDbContext)
         };
     }
 
-    public async Task<Equipe?> ObterEquipePorIdAsync(int equipeId)
+    public async Task<Equipe?> ObterPorIdAsync(int equipeId)
     {
         Equipe? equipe = await appDbContext.Equipes.FindAsync(equipeId);
         return equipe;
     }
 
-    public async Task<Equipe?> ObterEquipePorNomeAsync(string nome)
+    public async Task<Equipe?> ObterPorNomeAsync(string nome)
     {
         Equipe? equipe = await appDbContext.Equipes.FirstOrDefaultAsync(e => e.Nome.ToLower() == nome.ToLower());
         return equipe;
     }
     
-    public async Task<List<Equipe>> ObterTodasEquipesAsync()
+    public async Task<List<Equipe>> ObterTodasAsync()
     {
         return await appDbContext.Equipes.ToListAsync();
     }

@@ -7,7 +7,7 @@ namespace GTeams_backend.GestaoPessoas.Services;
 
 public class MatriculaService(AppDbContext appDbContext)
 {
-    public async Task<bool> InserirMatriculaAsync(InserirMatriculaDto matriculaDto)
+    public async Task<bool> InserirAsync(InserirMatriculaDto matriculaDto)
     {
         Colaborador? colaborador = await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
@@ -35,7 +35,7 @@ public class MatriculaService(AppDbContext appDbContext)
         return true;
     }
 
-    public async Task<bool> DeletarMatriculaAsync(int matriculaId)
+    public async Task<bool> DeletarAsync(int matriculaId)
     {
         Matricula? matricula = await appDbContext.Matriculas
             .FirstOrDefaultAsync(m => m.Id == matriculaId);
@@ -49,7 +49,7 @@ public class MatriculaService(AppDbContext appDbContext)
         return true;
     }
     
-    public async Task<Matricula?> ObterMatriculaPorIdAsync(int matriculaId)
+    public async Task<Matricula?> ObterPorIdAsync(int matriculaId)
     {
         Matricula? matricula = await appDbContext.Matriculas
             .FindAsync(matriculaId);

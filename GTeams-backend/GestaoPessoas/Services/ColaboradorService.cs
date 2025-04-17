@@ -36,14 +36,14 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         foreach (InserirMatriculaDto matricula in inserirColaboradorDto.Matriculas)
         {
             matricula.ColaboradorId = colaborador.Id;
-            await matriculaService.InserirMatriculaAsync(matricula);
+            await matriculaService.InserirAsync(matricula);
         }
 
         // Adicionar e-mails
         foreach (InserirEmailDto email in inserirColaboradorDto.Emails)
         {
             email.ColaboradorId = colaborador.Id;
-            await emailService.InserirEmailAsync(email);
+            await emailService.InserirAsync(email);
         }
 
         await appDbContext.SaveChangesAsync();

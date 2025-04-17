@@ -8,9 +8,9 @@ namespace GTeams_backend.GestaoMetas.Services;
 
 public class IntervaloMedicaoService(AppDbContext appDbContext)
 {
-    public async Task<RetornarIntervaloMedicaoDto> InserirIntervaloMedicao(InserirIntervaloMedicaoDto inserirIntervaloMedicaoDto)
+    public async Task<RetornarIntervaloMedicaoDto> InserirAsync(InserirIntervaloMedicaoDto inserirIntervaloMedicaoDto)
     {
-        IntervaloMedicao? buscaIntervaloMedicao = await ObterIntervaloMedicaoPorNome(inserirIntervaloMedicaoDto.Nome);
+        IntervaloMedicao? buscaIntervaloMedicao = await ObterPorNomeAsync(inserirIntervaloMedicaoDto.Nome);
         if (buscaIntervaloMedicao != null)
             throw new InvalidOperationException("O intervalo de medição já está cadastrada.");
 
@@ -28,14 +28,14 @@ public class IntervaloMedicaoService(AppDbContext appDbContext)
         return novoIntervaloMedicao.ToReturnDto();
     }
 
-    public async Task<IntervaloMedicao?> ObterIntervaloMedicaoPorId(int id)
+    public async Task<IntervaloMedicao?> ObterPorIdAsync(int id)
     {
         return await appDbContext.IntervalosMedicao
             .Include(i => i.DatasPersonalizadasMedicao)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
 
-    public async Task<IntervaloMedicao?> ObterIntervaloMedicaoPorNome(string nome)
+    public async Task<IntervaloMedicao?> ObterPorNomeAsync(string nome)
     {
         return await appDbContext.IntervalosMedicao
             .Include(i => i.DatasPersonalizadasMedicao)
@@ -48,9 +48,9 @@ public class IntervaloMedicaoService(AppDbContext appDbContext)
             .ToListAsync();
     }
 
-    public async Task<bool> DeletarInvervaloMedicaoAsync(int id)
+    public async Task<bool> DeletarAsync(int id)
     {
-        IntervaloMedicao? intervaloMedicao = await ObterIntervaloMedicaoPorId(id);
+        IntervaloMedicao? intervaloMedicao = await ObterPorIdAsync(id);
         if (intervaloMedicao == null)
             throw new KeyNotFoundException("Intervalo de medição não encontrado.");
 

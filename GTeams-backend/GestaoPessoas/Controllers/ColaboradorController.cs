@@ -19,7 +19,7 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
             if (inserirColaboradorDto is null || !ModelState.IsValid)
                 return BadRequest(ModelState);
         
-            RetornarColaboradorDto retornarColaboradorDto = await colaboradorService.InserirColaboradorAsync(inserirColaboradorDto);
+            RetornarColaboradorDto retornarColaboradorDto = await colaboradorService.InserirAsync(inserirColaboradorDto);
             return Ok(retornarColaboradorDto);
         }
         catch (Exception e)
@@ -31,7 +31,7 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
     [HttpGet("ObterPorId/{idColaborador}")]
     public async Task<IActionResult> ObterPorId(int idColaborador)
     {
-        Colaborador? colaborador = await colaboradorService.ObterColaboradorPorIdAsync(idColaborador);
+        Colaborador? colaborador = await colaboradorService.ObterPorIdAsync(idColaborador);
         if (colaborador is null)
             return NotFound();
         
@@ -63,7 +63,7 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
         try
         {
             RetornarColaboradorDto colaboradorDesativadoDto =
-                await colaboradorService.DesativarColaboradorAsync(idColaborador);
+                await colaboradorService.DesativarAsync(idColaborador);
             return Ok(colaboradorDesativadoDto);
         }
         catch (Exception e)
@@ -77,7 +77,7 @@ public class ColaboradorController(ColaboradorService colaboradorService, JwtSer
     {
         try
         {
-            Colaborador? user = await colaboradorService.ObterColaboradorPorUserAsync(loginDto.User);
+            Colaborador? user = await colaboradorService.ObterPorUserAsync(loginDto.User);
             if (user == null || !user.ValidatePassword(loginDto.Password))
                 return Unauthorized(new { message = "E-mail ou senha inválidos" });
 

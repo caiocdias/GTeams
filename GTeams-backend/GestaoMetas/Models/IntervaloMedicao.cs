@@ -17,23 +17,4 @@ public class IntervaloMedicao
     public DateOnly DataInicial { get; set; }
     [Required]
     public DateOnly DataFinal { get; set; }
-    
-    public ICollection<DataPersonalizada> DatasPersonalizadasMedicao { get; set; } = new List<DataPersonalizada>();
-    
-    public void GerarDatas()
-    {
-        if (DatasPersonalizadasMedicao.Any())
-            DatasPersonalizadasMedicao.Clear();
-
-        for (DateOnly data = DataInicial; data <= DataFinal; data = data.AddDays(1))
-        {
-            DatasPersonalizadasMedicao.Add(new DataPersonalizada
-            {
-                Data = data,
-                TipoData = data.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday
-                    ? TipoData.FimDeSemana
-                    : TipoData.Util
-            });
-        }
-    }
 }

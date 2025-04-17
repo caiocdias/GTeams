@@ -9,7 +9,7 @@ public class ObservacaoService(AppDbContext appDbContext, ColaboradorService col
 {
     public async Task<RetornarObservacaoDto> InserirAsync(InserirObservacaoDto inserirObservacaoDto)
     {
-        Colaborador? colaborador = await colaboradorService.ObterColaboradorPorIdAsync(inserirObservacaoDto.ColaboradorId);
+        Colaborador? colaborador = await colaboradorService.ObterPorIdAsync(inserirObservacaoDto.ColaboradorId);
         if (colaborador == null)
             throw new NullReferenceException("O colaborador indicado não existe.");
 

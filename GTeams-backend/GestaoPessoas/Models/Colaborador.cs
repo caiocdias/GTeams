@@ -38,7 +38,6 @@ public class Colaborador
     
     public ICollection<Observacao> Observacoes { get; set; } = new List<Observacao>();
     public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
-    public ICollection<DataPersonalizada> DatasPersonalizadasColaborador { get; set; } = new List<DataPersonalizada>();
     public ICollection<Email> Emails { get; set; } = new List<Email>();
     
     public void SetPassword(string password)

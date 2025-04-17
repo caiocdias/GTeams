@@ -11,8 +11,7 @@ public static class IntervaloMedicaoExtension
         {
             Id = intervaloMedicao.Id,
             DataInicial = intervaloMedicao.DataInicial,
-            DataFinal = intervaloMedicao.DataFinal,
-            DatasPersonalizadasMedicao = intervaloMedicao.DatasPersonalizadasMedicao
+            DataFinal = intervaloMedicao.DataFinal
         };
     }
 }

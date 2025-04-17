@@ -12,8 +12,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Matricula> Matriculas { get; set; }
     public DbSet<Observacao> Observacoes { get; set; }
     public DbSet<Email> Emails { get; set; }
-
     public DbSet<DataPersonalizada> DatasPersonalizadas { get; set; }
+    public DbSet<MetaColaboradorMedicao> MetasColaboradoresMedicao { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,21 +31,39 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .Property(d => d.TipoData)
             .HasConversion<string>();
 
-        modelBuilder.Entity<DataPersonalizada>()
-            .HasDiscriminator<string>("TipoEntidade")
-            .HasValue("Colaborador")
-            .HasValue("Medicao");
+        modelBuilder.Entity<MetaColaboradorMedicao>()
+            .HasMany(mcm => mcm.DatasPersonalizadasMedicao)
+            .WithOne(dp => dp.MetaColaboradorMedicao)
+            .HasForeignKey(dp => dp.MetaColaboradorMedicaoId);
 
-        modelBuilder.Entity<DataPersonalizada>()
-            .HasOne(d => d.Colaborador)
-            .WithMany(c => c.DatasPersonalizadasColaborador)
-            .HasForeignKey(d => d.ColaboradorId)
-            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Colaborador>()
+            .HasMany(c => c.Emails)
+            .WithOne(e => e.Colaborador)
+            .HasForeignKey(e => e.ColaboradorId);
 
-        modelBuilder.Entity<DataPersonalizada>()
-            .HasOne(d => d.IntervaloMedicao)
-            .WithMany(i => i.DatasPersonalizadasMedicao)
-            .HasForeignKey(d => d.IntervaloMedicaoId)
-            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Colaborador>()
+            .HasMany(c => c.Matriculas)
+            .WithOne(m => m.Colaborador)
+            .HasForeignKey(m => m.ColaboradorId);
+
+        modelBuilder.Entity<Colaborador>()
+            .HasMany(c => c.Observacoes)
+            .WithOne(o => o.Colaborador)
+            .HasForeignKey(o => o.ColaboradorId);
+
+        modelBuilder.Entity<MetaColaboradorMedicao>()
+            .HasOne(mcm => mcm.Colaborador)
+            .WithMany()
+            .HasForeignKey(mcm => mcm.ColaboradorId);
+
+        modelBuilder.Entity<MetaColaboradorMedicao>()
+            .HasOne(mcm => mcm.Equipe)
+            .WithMany()
+            .HasForeignKey(mcm => mcm.EquipeId);
+
+        modelBuilder.Entity<MetaColaboradorMedicao>()
+            .HasOne(mcm => mcm.IntervaloMedicao)
+            .WithMany()
+            .HasForeignKey(mcm => mcm.IntervaloMedicaoId);
     }
 }

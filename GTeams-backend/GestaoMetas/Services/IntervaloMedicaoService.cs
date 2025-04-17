@@ -20,7 +20,6 @@ public class IntervaloMedicaoService(AppDbContext appDbContext)
             DataInicial = inserirIntervaloMedicaoDto.DataInicial,
             DataFinal = inserirIntervaloMedicaoDto.DataFinal
         };
-        novoIntervaloMedicao.GerarDatas();
         
         appDbContext.IntervalosMedicao.Add(novoIntervaloMedicao);
         await appDbContext.SaveChangesAsync();
@@ -31,20 +30,17 @@ public class IntervaloMedicaoService(AppDbContext appDbContext)
     public async Task<IntervaloMedicao?> ObterPorIdAsync(int id)
     {
         return await appDbContext.IntervalosMedicao
-            .Include(i => i.DatasPersonalizadasMedicao)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task<IntervaloMedicao?> ObterPorNomeAsync(string nome)
     {
         return await appDbContext.IntervalosMedicao
-            .Include(i => i.DatasPersonalizadasMedicao)
             .FirstOrDefaultAsync(i => i.Nome.ToLower() == nome.ToLower());
     }
     public async Task<List<IntervaloMedicao>> ObterTodosIntervalosMedicao()
     {
         return await appDbContext.IntervalosMedicao
-            .Include(i => i.DatasPersonalizadasMedicao)
             .ToListAsync();
     }
 

@@ -10,9 +10,9 @@ namespace GTeams_backend.GestaoPessoas.Services;
 
 public class ColaboradorService(AppDbContext appDbContext, EmailService emailService, MatriculaService matriculaService)
 {
-    public async Task<RetornarColaboradorDto> InserirColaboradorAsync(InserirColaboradorDto inserirColaboradorDto)
+    public async Task<RetornarColaboradorDto> InserirAsync(InserirColaboradorDto inserirColaboradorDto)
     {
-        Colaborador? existente = await ObterColaboradorPorUserAsync(inserirColaboradorDto.User);
+        Colaborador? existente = await ObterPorUserAsync(inserirColaboradorDto.User);
 
         if (existente != null )
         {
@@ -49,7 +49,7 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         await appDbContext.SaveChangesAsync();
 
         // Recuperar colaborador completo
-        Colaborador? colaboradorComDados = await ObterColaboradorPorUserAsync(colaborador.User);
+        Colaborador? colaboradorComDados = await ObterPorUserAsync(colaborador.User);
 
         if (colaboradorComDados == null)
             throw new InvalidOperationException("Erro ao recuperar colaborador.");
@@ -57,19 +57,18 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
         return colaboradorComDados.ToReturnDto();
     }
 
-    public async Task<Colaborador?> ObterColaboradorPorIdAsync(int colaboradorId)
+    public async Task<Colaborador?> ObterPorIdAsync(int colaboradorId)
     {
         return await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
-            .Include(c => c.DatasPersonalizadasColaborador)
             .Include(c => c.Observacoes)
             .FirstOrDefaultAsync(c => c.Id == colaboradorId);
     }
     
-    public async Task<RetornarColaboradorDto> DesativarColaboradorAsync(int colaboradorId)
+    public async Task<RetornarColaboradorDto> DesativarAsync(int colaboradorId)
     {
-        Colaborador? colaborador = await ObterColaboradorPorIdAsync(colaboradorId);
+        Colaborador? colaborador = await ObterPorIdAsync(colaboradorId);
         
         if (colaborador == null)
             throw new KeyNotFoundException("Colaborador não encontrado.");
@@ -90,12 +89,11 @@ public class ColaboradorService(AppDbContext appDbContext, EmailService emailSer
             .ToListAsync();
     }
     
-    public async Task<Colaborador?> ObterColaboradorPorUserAsync(string user)
+    public async Task<Colaborador?> ObterPorUserAsync(string user)
     {
         var colaborador = await appDbContext.Colaboradores
             .Include(c => c.Matriculas)
             .Include(c => c.Emails)
-            .Include(c => c.DatasPersonalizadasColaborador)
             .Include(c => c.Observacoes)
             .FirstOrDefaultAsync(c => c.User.Trim().ToLower() == user.Trim().ToLower());
 

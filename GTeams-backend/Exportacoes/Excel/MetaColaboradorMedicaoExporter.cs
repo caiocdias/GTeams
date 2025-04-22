@@ -19,7 +19,8 @@ public class MetaColaboradorMedicaoExporter : IExporter<MetaColaboradorMedicao>
         sheet.Cell("E1").Value = "DataFinal";
         sheet.Cell("F1").Value = "MetaNs";
         sheet.Cell("G1").Value = "MetaUs";
-
+        sheet.Cell("H1").Value = "Chave";
+        
         int row = 2;
         foreach (var item in metaColaboradorMedicao)
         {
@@ -30,6 +31,7 @@ public class MetaColaboradorMedicaoExporter : IExporter<MetaColaboradorMedicao>
             sheet.Cell("E" + row).Value = item.IntervaloMedicao.DataFinal.ToString();
             sheet.Cell("F" + row).Value = item.MetaNs;
             sheet.Cell("G" + row).Value = item.MetaUs;
+            sheet.Cell("H" + row).Value = (item.Colaborador.Nome + item.Equipe.Nome + item.IntervaloMedicao.Nome).Replace(" ", string.Empty);
             row++;
         }
         

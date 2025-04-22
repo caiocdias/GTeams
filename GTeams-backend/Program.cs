@@ -1,6 +1,10 @@
 using System.Text;
 using GTeams_backend.CrossCutting.Authentication;
 using GTeams_backend.Data;
+using GTeams_backend.Exportacoes.Excel;
+using GTeams_backend.Exportacoes.Interfaces;
+using GTeams_backend.Exportacoes.Services;
+using GTeams_backend.GestaoMetas.Models;
 using GTeams_backend.GestaoMetas.Services;
 using GTeams_backend.GestaoPessoas.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,6 +24,10 @@ builder.Services.AddScoped<MatriculaService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IntervaloMedicaoService>();
 builder.Services.AddScoped<MetaColaboradorMedicaoService>();
+builder.Services.AddScoped<MetaColaboradorMedicaoExporterService>();
+
+builder.Services.AddScoped<IExporter<MetaColaboradorMedicao>, MetaColaboradorMedicaoExporter>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

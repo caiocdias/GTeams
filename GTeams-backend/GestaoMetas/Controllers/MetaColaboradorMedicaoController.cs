@@ -1,3 +1,4 @@
+using GTeams_backend.Exportacoes.Services;
 using GTeams_backend.GestaoMetas.Dtos.MetaColaboradorMedicaoDtos;
 using GTeams_backend.GestaoMetas.Extensions;
 using GTeams_backend.GestaoMetas.Models;
@@ -8,7 +9,7 @@ namespace GTeams_backend.GestaoMetas.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService metaColaboradorMedicaoService)
+public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService metaColaboradorMedicaoService, MetaColaboradorMedicaoExporterService metaColaboradorMedicaoExporterService)
     : ControllerBase
 {
     [HttpPost("Inserir")]
@@ -73,6 +74,21 @@ public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService meta
         {
             RetornarMetaColaboradorMedicaoDto retornarMetaColaboradorMedicaoDto = await metaColaboradorMedicaoService.DeletarAsync(id);
             return Ok(retornarMetaColaboradorMedicaoDto);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("ObterExcelGeral")]
+    public async Task<IActionResult> ObterExcelGeral()
+    {
+        try
+        {
+            return File(await metaColaboradorMedicaoExporterService.ExportMetaColaboradorMedicaoAsync(),
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "Metas_Colaboradores_Medicao.xlsx");
         }
         catch (Exception e)
         {

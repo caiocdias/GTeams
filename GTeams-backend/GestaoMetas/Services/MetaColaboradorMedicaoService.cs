@@ -62,6 +62,15 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
             .FirstOrDefaultAsync(mcm => mcm.Id == id);
     }
 
+    public async Task<List<MetaColaboradorMedicao>> ObterTodosAsync()
+    {
+        return await appDbContext.MetasColaboradoresMedicao
+            .Include(mcm => mcm.Colaborador)
+            .Include(mcm => mcm.IntervaloMedicao)
+            .Include(mcm => mcm.Equipe)
+            .ToListAsync();
+    }
+
     public async Task<MetaColaboradorMedicao?> ObterPorIdAsync(int colaboradorId, int intervaloMedicaoId, int equipeId)
     {
         return await appDbContext.MetasColaboradoresMedicao

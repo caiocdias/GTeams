@@ -1,9 +1,9 @@
 using System.Text;
 using GTeams_backend.CrossCutting.Authentication;
 using GTeams_backend.Data;
-using GTeams_backend.Exportacoes.Excel;
-using GTeams_backend.Exportacoes.Interfaces;
-using GTeams_backend.Exportacoes.Services;
+using GTeams_backend.Exports.Excel;
+using GTeams_backend.Exports.Interfaces;
+using GTeams_backend.Exports.Services;
 using GTeams_backend.GestaoMetas.Models;
 using GTeams_backend.GestaoMetas.Services;
 using GTeams_backend.GestaoPessoas.Services;
@@ -88,8 +88,8 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 

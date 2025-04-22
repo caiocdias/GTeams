@@ -1,4 +1,4 @@
-using GTeams_backend.Exportacoes.Services;
+using GTeams_backend.Exports.Services;
 using GTeams_backend.GestaoMetas.Dtos.MetaColaboradorMedicaoDtos;
 using GTeams_backend.GestaoMetas.Extensions;
 using GTeams_backend.GestaoMetas.Models;
@@ -9,7 +9,10 @@ namespace GTeams_backend.GestaoMetas.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService metaColaboradorMedicaoService, MetaColaboradorMedicaoExporterService metaColaboradorMedicaoExporterService)
+public class MetaColaboradorMedicaoController(
+    MetaColaboradorMedicaoService metaColaboradorMedicaoService,
+    MetaColaboradorMedicaoExporterService metaColaboradorMedicaoExporterService,
+    IConfiguration _configuration)
     : ControllerBase
 {
     [HttpPost("Inserir")]
@@ -22,8 +25,9 @@ public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService meta
             {
                 return BadRequest();
             }
-            
-            RetornarMetaColaboradorMedicaoDto retornarMetaColaboradorMedicaoDto = await metaColaboradorMedicaoService.InserirAsync(inserirMetaColaboradorMedicaoDto);
+
+            RetornarMetaColaboradorMedicaoDto retornarMetaColaboradorMedicaoDto =
+                await metaColaboradorMedicaoService.InserirAsync(inserirMetaColaboradorMedicaoDto);
             return Ok(retornarMetaColaboradorMedicaoDto);
         }
         catch (Exception e)
@@ -31,7 +35,7 @@ public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService meta
             return BadRequest(e.Message);
         }
     }
-    
+
     [HttpGet("ObterPorId/{id}")]
     public async Task<IActionResult> ObterPorId(int id)
     {
@@ -55,10 +59,11 @@ public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService meta
     {
         try
         {
-            MetaColaboradorMedicao? metaColaboradorMedicao = await metaColaboradorMedicaoService.ObterPorIdAsync(colaboradorId, intervaloMedicaoId, equipeId);
+            MetaColaboradorMedicao? metaColaboradorMedicao =
+                await metaColaboradorMedicaoService.ObterPorIdAsync(colaboradorId, intervaloMedicaoId, equipeId);
             if (metaColaboradorMedicao == null)
                 return NotFound();
-            
+
             return Ok(metaColaboradorMedicao.ToReturnDto());
         }
         catch (Exception e)
@@ -72,7 +77,8 @@ public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService meta
     {
         try
         {
-            RetornarMetaColaboradorMedicaoDto retornarMetaColaboradorMedicaoDto = await metaColaboradorMedicaoService.DeletarAsync(id);
+            RetornarMetaColaboradorMedicaoDto retornarMetaColaboradorMedicaoDto =
+                await metaColaboradorMedicaoService.DeletarAsync(id);
             return Ok(retornarMetaColaboradorMedicaoDto);
         }
         catch (Exception e)
@@ -93,6 +99,33 @@ public class MetaColaboradorMedicaoController(MetaColaboradorMedicaoService meta
         catch (Exception e)
         {
             return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPost("SalvarPlanilha")]
+    public async Task<IActionResult> SalvarPlanilha()
+    {
+        try
+        {
+            byte[] planilhaBytes = await metaColaboradorMedicaoExporterService.ExportMetaColaboradorMedicaoAsync();
+
+            string? exportPath = _configuration.GetSection("Exports")["Path"];
+            if (string.IsNullOrEmpty(exportPath))
+                return StatusCode(500, "Caminho para exportação não configurado.");
+
+            if (!Directory.Exists(exportPath))
+                Directory.CreateDirectory(exportPath);
+
+            string fileName = $"Metas_Colaboradores_Medicao_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+            string fullPath = Path.Combine(exportPath, fileName);
+
+            await System.IO.File.WriteAllBytesAsync(fullPath, planilhaBytes);
+
+            return Ok(new { Caminho = fullPath });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 }

@@ -1,10 +1,12 @@
-using GTeams_backend.Exportacoes.Interfaces;
+using GTeams_backend.Exports.Interfaces;
 using GTeams_backend.GestaoMetas.Models;
 using GTeams_backend.GestaoMetas.Services;
 
-namespace GTeams_backend.Exportacoes.Services;
+namespace GTeams_backend.Exports.Services;
 
-public class MetaColaboradorMedicaoExporterService(MetaColaboradorMedicaoService metaColaboradorMedicaoService, IExporter<MetaColaboradorMedicao> exporter) 
+public class MetaColaboradorMedicaoExporterService(
+    MetaColaboradorMedicaoService metaColaboradorMedicaoService,
+    IExporter<MetaColaboradorMedicao> exporter)
 {
     public async Task<byte[]> ExportMetaColaboradorMedicaoAsync()
     {

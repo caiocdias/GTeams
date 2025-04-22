@@ -1,4 +1,4 @@
-namespace GTeams_backend.Exportacoes.Interfaces;
+namespace GTeams_backend.Exports.Interfaces;
 
 public interface IExporter<T>
 {

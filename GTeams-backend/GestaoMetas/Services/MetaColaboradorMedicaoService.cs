@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GTeams_backend.GestaoMetas.Services;
 
-public class MetaColaboradorMedicaoService(AppDbContext appDbContext, ColaboradorService colaboradorService, EquipeService equipeService, IntervaloMedicaoService intervaloMedicaoService)
+public class MetaColaboradorMedicaoService(
+    AppDbContext appDbContext,
+    ColaboradorService colaboradorService,
+    EquipeService equipeService,
+    IntervaloMedicaoService intervaloMedicaoService)
 {
     public async Task<RetornarMetaColaboradorMedicaoDto> InserirAsync(
         InserirMetaColaboradorMedicaoDto inserirMetaColaboradorMedicaoDto)
@@ -20,8 +24,9 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
         if (metaColaboradorMedicao is not null)
             throw new InvalidOperationException(
                 "O colaborador desta equipe já está cadastrado no intervalo de medição informado.");
-        
-        Colaborador? colaborador = await colaboradorService.ObterPorIdAsync(inserirMetaColaboradorMedicaoDto.ColaboradorId);
+
+        Colaborador? colaborador =
+            await colaboradorService.ObterPorIdAsync(inserirMetaColaboradorMedicaoDto.ColaboradorId);
         if (colaborador is not { Ativo: true })
             throw new InvalidOperationException("O colaborador informado não existe.");
 
@@ -29,11 +34,12 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
         Equipe? equipe = await equipeService.ObterPorIdAsync(inserirMetaColaboradorMedicaoDto.EquipeId);
         if (equipe is not { Ativo: true })
             throw new InvalidOperationException("A equipe informada não existe.");
-        
-        IntervaloMedicao? intervaloMedicao = await intervaloMedicaoService.ObterPorIdAsync(inserirMetaColaboradorMedicaoDto.IntervaloMedicaoId);
+
+        IntervaloMedicao? intervaloMedicao =
+            await intervaloMedicaoService.ObterPorIdAsync(inserirMetaColaboradorMedicaoDto.IntervaloMedicaoId);
         if (intervaloMedicao is null)
             throw new InvalidOperationException("O intervalo de medição informado não existe.");
-        
+
         MetaColaboradorMedicao novaMetaColaboradorMedicao = new MetaColaboradorMedicao
         {
             ColaboradorId = inserirMetaColaboradorMedicaoDto.ColaboradorId,
@@ -42,14 +48,18 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
             MetaNs = inserirMetaColaboradorMedicaoDto.MetaNs,
             MetaUs = inserirMetaColaboradorMedicaoDto.MetaUs
         };
-        
+
         appDbContext.MetasColaboradoresMedicao.Add(novaMetaColaboradorMedicao);
         await appDbContext.SaveChangesAsync();
-        
+
         MetaColaboradorMedicao? meta = await ObterPorIdAsync(novaMetaColaboradorMedicao.Id);
         if (meta == null)
             throw new InvalidOperationException("Houve um erro ao inserir o item.");
 
+        meta.GerarDatas();
+        meta.GerarQtdDiasUteis();
+
+        await appDbContext.SaveChangesAsync();
         return meta.ToReturnDto();
     }
 
@@ -57,8 +67,10 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
     {
         return await appDbContext.MetasColaboradoresMedicao
             .Include(mcm => mcm.Colaborador)
+            .ThenInclude(c => c.Matriculas)
             .Include(mcm => mcm.IntervaloMedicao)
             .Include(mcm => mcm.Equipe)
+            .Include(mcm => mcm.DatasPersonalizadasMedicao)
             .FirstOrDefaultAsync(mcm => mcm.Id == id);
     }
 
@@ -66,8 +78,10 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
     {
         return await appDbContext.MetasColaboradoresMedicao
             .Include(mcm => mcm.Colaborador)
+            .ThenInclude(c => c.Matriculas)
             .Include(mcm => mcm.IntervaloMedicao)
             .Include(mcm => mcm.Equipe)
+            .Include(mcm => mcm.DatasPersonalizadasMedicao)
             .ToListAsync();
     }
 
@@ -75,8 +89,10 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
     {
         return await appDbContext.MetasColaboradoresMedicao
             .Include(mcm => mcm.Colaborador)
+            .ThenInclude(c => c.Matriculas)
             .Include(mcm => mcm.IntervaloMedicao)
             .Include(mcm => mcm.Equipe)
+            .Include(mcm => mcm.DatasPersonalizadasMedicao)
             .FirstOrDefaultAsync(mcm =>
                 mcm.ColaboradorId == colaboradorId && mcm.IntervaloMedicaoId == intervaloMedicaoId &&
                 mcm.EquipeId == equipeId);
@@ -85,12 +101,12 @@ public class MetaColaboradorMedicaoService(AppDbContext appDbContext, Colaborado
     public async Task<RetornarMetaColaboradorMedicaoDto> DeletarAsync(int metaColaboradorMedicaoId)
     {
         MetaColaboradorMedicao? metaColaboradorMedicao = await ObterPorIdAsync(metaColaboradorMedicaoId);
-        if (metaColaboradorMedicao is null) 
+        if (metaColaboradorMedicao is null)
             throw new InvalidOperationException("O intervalo de medição informado não existe.");
-        
+
         appDbContext.MetasColaboradoresMedicao.Remove(metaColaboradorMedicao);
         await appDbContext.SaveChangesAsync();
-        
+
         return metaColaboradorMedicao.ToReturnDto();
     }
 }

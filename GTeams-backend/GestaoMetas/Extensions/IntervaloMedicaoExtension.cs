@@ -10,6 +10,7 @@ public static class IntervaloMedicaoExtension
         return new RetornarIntervaloMedicaoDto
         {
             Id = intervaloMedicao.Id,
+            Nome = intervaloMedicao.Nome,
             DataInicial = intervaloMedicao.DataInicial,
             DataFinal = intervaloMedicao.DataFinal
         };

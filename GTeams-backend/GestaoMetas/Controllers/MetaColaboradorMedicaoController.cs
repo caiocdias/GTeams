@@ -12,7 +12,7 @@ namespace GTeams_backend.GestaoMetas.Controllers;
 public class MetaColaboradorMedicaoController(
     MetaColaboradorMedicaoService metaColaboradorMedicaoService,
     MetaColaboradorMedicaoExporterService metaColaboradorMedicaoExporterService,
-    IConfiguration _configuration)
+    IConfiguration configuration)
     : ControllerBase
 {
     [HttpPost("Inserir")]
@@ -102,26 +102,47 @@ public class MetaColaboradorMedicaoController(
         }
     }
 
+    [HttpGet("ObterExcelDiario")]
+    public async Task<IActionResult> ObterExcelDiario()
+    {
+        try
+        {
+            return File(await metaColaboradorMedicaoExporterService.ExportMetaColaboradorMedicaoDailyAsync(),
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "Metas_Colaboradores_Medicao_Diario.xlsx");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpPost("SalvarPlanilha")]
     public async Task<IActionResult> SalvarPlanilha()
     {
         try
         {
             byte[] planilhaBytes = await metaColaboradorMedicaoExporterService.ExportMetaColaboradorMedicaoAsync();
+            byte[] planilhaDiariaBytes =
+                await metaColaboradorMedicaoExporterService.ExportMetaColaboradorMedicaoDailyAsync();
 
-            string? exportPath = _configuration.GetSection("Exports")["Path"];
+            string? exportPath = configuration.GetSection("Exports")["Path"];
             if (string.IsNullOrEmpty(exportPath))
                 return StatusCode(500, "Caminho para exportação não configurado.");
 
             if (!Directory.Exists(exportPath))
                 Directory.CreateDirectory(exportPath);
 
-            string fileName = $"Metas_Colaboradores_Medicao_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+            string fileName = $"Metas_Colaboradores_Medicao.xlsx";
+            string fileNameDiaria = $"Metas_Diarias.xlsx";
+
             string fullPath = Path.Combine(exportPath, fileName);
+            string fullPathDiaria = Path.Combine(exportPath, fileNameDiaria);
 
             await System.IO.File.WriteAllBytesAsync(fullPath, planilhaBytes);
+            await System.IO.File.WriteAllBytesAsync(fullPathDiaria, planilhaDiariaBytes);
 
-            return Ok(new { Caminho = fullPath });
+            return Ok();
         }
         catch (Exception ex)
         {

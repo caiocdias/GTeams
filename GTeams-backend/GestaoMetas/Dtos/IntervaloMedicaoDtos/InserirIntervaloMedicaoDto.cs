@@ -5,12 +5,12 @@ namespace GTeams_backend.GestaoMetas.Dtos.IntervaloMedicaoDtos;
 public class InserirIntervaloMedicaoDto
 {
     [Required(ErrorMessage = "O nome é obrigatório.")]
-    [StringLength(100, ErrorMessage = "O nome deve ter no máximo 100 caracteres.")]
+    [StringLength(100, MinimumLength = 5)]
     public string Nome { get; set; } = string.Empty;
-    
+
     [Required(ErrorMessage = "A data inicial é obrigatória.")]
     public DateOnly DataInicial { get; set; }
-    
+
     [Required(ErrorMessage = "A data final é obrigatória.")]
     [CustomValidation(typeof(InserirIntervaloMedicaoDto), nameof(ValidarDatas))]
     public DateOnly DataFinal { get; set; }

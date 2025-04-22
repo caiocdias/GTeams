@@ -13,4 +13,10 @@ public class MetaColaboradorMedicaoExporterService(
         List<MetaColaboradorMedicao> metas = await metaColaboradorMedicaoService.ObterTodosAsync();
         return exporter.ExportAsXlsx(metas);
     }
+
+    public async Task<byte[]> ExportMetaColaboradorMedicaoDailyAsync()
+    {
+        List<MetaColaboradorMedicao> metas = await metaColaboradorMedicaoService.ObterTodosAsync();
+        return exporter.ExportDailyAsXlsx(metas);
+    }
 }

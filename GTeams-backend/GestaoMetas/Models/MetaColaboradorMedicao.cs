@@ -10,27 +10,26 @@ public class MetaColaboradorMedicao
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    
-    [Required]
-    [ForeignKey("Colaborador")]
-    public int ColaboradorId { get; set; }
+
+    [Required] [ForeignKey("Colaborador")] public int ColaboradorId { get; set; }
     public Colaborador Colaborador { get; set; } = null!;
-    
+
     [Required]
     [ForeignKey("IntervaloMedicao")]
     public int IntervaloMedicaoId { get; set; }
+
     public IntervaloMedicao IntervaloMedicao { get; set; } = null!;
-    
-    [Required]
-    [ForeignKey("Equipe")]
-    public int EquipeId { get; set; }
+
+    [Required] [ForeignKey("Equipe")] public int EquipeId { get; set; }
     public Equipe Equipe { get; set; } = null!;
-    
+
     public decimal MetaNs { get; set; }
     public decimal MetaUs { get; set; }
 
     public List<DataPersonalizada> DatasPersonalizadasMedicao { get; set; } = new List<DataPersonalizada>();
-    
+
+    public int QtdDiasUteis { get; set; }
+
     public bool GerarDatas()
     {
         if (DatasPersonalizadasMedicao.Any())
@@ -38,7 +37,8 @@ public class MetaColaboradorMedicao
             DatasPersonalizadasMedicao.Clear();
         }
 
-        IEnumerable<DataPersonalizada> datas = Enumerable.Range(0, IntervaloMedicao.DataFinal.DayNumber - IntervaloMedicao.DataInicial.DayNumber + 1)
+        IEnumerable<DataPersonalizada> datas = Enumerable
+            .Range(0, IntervaloMedicao.DataFinal.DayNumber - IntervaloMedicao.DataInicial.DayNumber + 1)
             .Select(offset => IntervaloMedicao.DataInicial.AddDays(offset))
             .Select(data => new DataPersonalizada
             {
@@ -54,4 +54,9 @@ public class MetaColaboradorMedicao
         return true;
     }
 
+    public bool GerarQtdDiasUteis()
+    {
+        QtdDiasUteis = DatasPersonalizadasMedicao.Count(data => data.TipoData == TipoData.Util);
+        return true;
+    }
 }

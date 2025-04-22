@@ -25,9 +25,7 @@ builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IntervaloMedicaoService>();
 builder.Services.AddScoped<MetaColaboradorMedicaoService>();
 builder.Services.AddScoped<MetaColaboradorMedicaoExporterService>();
-
 builder.Services.AddScoped<IExporter<MetaColaboradorMedicao>, MetaColaboradorMedicaoExporter>();
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

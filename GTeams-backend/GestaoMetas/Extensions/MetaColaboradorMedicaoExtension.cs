@@ -17,7 +17,8 @@ public static class MetaColaboradorMedicaoExtension
             EquipeId = metaColaboradorMedicao.EquipeId,
             EquipeNome = metaColaboradorMedicao.Equipe.Nome,
             MetaNs = metaColaboradorMedicao.MetaNs,
-            MetaUs = metaColaboradorMedicao.MetaUs
+            MetaUs = metaColaboradorMedicao.MetaUs,
+            QtdDiasUteis = metaColaboradorMedicao.QtdDiasUteis
         };
     }
 }

@@ -11,4 +11,5 @@ public class RetornarMetaColaboradorMedicaoDto
     public string EquipeNome { get; set; } = string.Empty;
     public decimal MetaNs { get; set; }
     public decimal MetaUs { get; set; }
+    public int QtdDiasUteis { get; set; }
 }

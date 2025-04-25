@@ -5,37 +5,13 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using GTeams_wpfapp.GestaoPessoas.Models;
 using GTeams_wpfapp.GestaoPessoas.Models.ColaboradorDtos;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace GTeams_wpfapp.GestaoPessoas.Views.Colaborador
 {
     public partial class CadastrarColaborador : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public class FuncaoComboItem
-        {
-            public string Nome { get; set; }
-            public Funcao Valor { get; set; }
-        }
-
-        public List<FuncaoComboItem> TipoFuncao { get; set; }
-
-        private FuncaoComboItem _funcaoSelecionada;
-        public FuncaoComboItem FuncaoSelecionada
-        {
-            get => _funcaoSelecionada;
-            set
-            {
-                if (_funcaoSelecionada != value)
-                {
-                    _funcaoSelecionada = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        
-        public InserirColaboradorDto InserirColaboradorDto { get; set; } = new InserirColaboradorDto();
-        
         public CadastrarColaborador()
         {
             InitializeComponent();
@@ -49,23 +25,52 @@ namespace GTeams_wpfapp.GestaoPessoas.Views.Colaborador
             FuncaoSelecionada = TipoFuncao.FirstOrDefault();
             DataContext = this;
         }
-
-        public void PrintarVariaveis(object sender, RoutedEventArgs routedEventArgs)
+        public async void InserirAsync(object sender, RoutedEventArgs routedEventArgs)
         {
-            
-            InserirColaboradorDto.Nome = TxtBoxNome.Text;
-            InserirColaboradorDto.Cpf = TxtBoxCpf.Text;
-            InserirColaboradorDto.Password = PwdBox.Password;
-            InserirColaboradorDto.User = TxtBoxUser.Text;
-            InserirColaboradorDto.Funcao = FuncaoSelecionada.Valor;
-            
-            Console.WriteLine(InserirColaboradorDto.Nome);
-            Console.WriteLine(InserirColaboradorDto.Cpf);
-            Console.WriteLine(InserirColaboradorDto.Password);
-            Console.WriteLine(InserirColaboradorDto.User);
-            Console.WriteLine(InserirColaboradorDto.Funcao);
+            InserirColaboradorDto inserirColaboradorDto = new InserirColaboradorDto
+            {
+                Nome = TxtBoxNome.Text,
+                Cpf = TxtBoxCpf.Text,
+                Password = PwdBox.Password,
+                User = TxtBoxUser.Text,
+                Funcao = FuncaoSelecionada.Valor,
+                Ativo = CheckBoxAtivo.IsChecked ?? true
+            };
+
+            using HttpClient httpClient = new HttpClient();
+            string url = "https://localhost:7075/api/Colaborador/Inserir";
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, inserirColaboradorDto);
+            if (response.IsSuccessStatusCode)
+                MessageBox.Show("Colaborador Inserido com Sucesso!");
+            else
+            {
+                string erroContent = await response.Content.ReadAsStringAsync();
+                MessageBox.Show($"Erro ao inserir colaborador: {erroContent}");
+            }
+        }
+
+        public FuncaoComboItem FuncaoSelecionada
+        {
+            get => _funcaoSelecionada;
+            set
+            {
+                if (_funcaoSelecionada != value)
+                {
+                    _funcaoSelecionada = value;
+                    OnPropertyChanged();
+                }
+            }
         }
         
+        //Controle de Enum
+        public List<FuncaoComboItem> TipoFuncao { get; set; }
+        private FuncaoComboItem _funcaoSelecionada;
+        public class FuncaoComboItem
+        {
+            public string Nome { get; set; }
+            public Funcao Valor { get; set; }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
         private string GetEnumDisplayName(Funcao value)
         {
             var displayAttribute = value.GetType()
@@ -75,7 +80,6 @@ namespace GTeams_wpfapp.GestaoPessoas.Views.Colaborador
 
             return displayAttribute?.GetName() ?? value.ToString();
         }
-
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

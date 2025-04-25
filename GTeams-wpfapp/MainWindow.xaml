@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Language="pt-br"
-        Title="GTeams" Height="650" Width="1080"
-        WindowStartupLocation="CenterScreen" 
+        Title="GTeams"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Background="#F5F7FA"
         FontFamily="Segoe UI">
 

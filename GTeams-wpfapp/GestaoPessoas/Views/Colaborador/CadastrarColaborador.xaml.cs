@@ -1,15 +1,14 @@
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
-using GTeams_wpfapp.Models;
-using System.ComponentModel.DataAnnotations;
+using System.Windows;
+using GTeams_wpfapp.GestaoPessoas.Models;
+using GTeams_wpfapp.GestaoPessoas.Models.ColaboradorDtos;
 
-namespace GTeams_wpfapp.Views.Colaborador
+namespace GTeams_wpfapp.GestaoPessoas.Views.Colaborador
 {
-    public partial class CadastrarColaborador : UserControl, INotifyPropertyChanged
+    public partial class CadastrarColaborador : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +33,9 @@ namespace GTeams_wpfapp.Views.Colaborador
                 }
             }
         }
-
+        
+        public InserirColaboradorDto InserirColaboradorDto { get; set; } = new InserirColaboradorDto();
+        
         public CadastrarColaborador()
         {
             InitializeComponent();
@@ -44,11 +45,27 @@ namespace GTeams_wpfapp.Views.Colaborador
                 Nome = GetEnumDisplayName(f),
                 Valor = f
             }).ToList();
-
+            
             FuncaoSelecionada = TipoFuncao.FirstOrDefault();
             DataContext = this;
         }
 
+        public void PrintarVariaveis(object sender, RoutedEventArgs routedEventArgs)
+        {
+            
+            InserirColaboradorDto.Nome = TxtBoxNome.Text;
+            InserirColaboradorDto.Cpf = TxtBoxCpf.Text;
+            InserirColaboradorDto.Password = PwdBox.Password;
+            InserirColaboradorDto.User = TxtBoxUser.Text;
+            InserirColaboradorDto.Funcao = FuncaoSelecionada.Valor;
+            
+            Console.WriteLine(InserirColaboradorDto.Nome);
+            Console.WriteLine(InserirColaboradorDto.Cpf);
+            Console.WriteLine(InserirColaboradorDto.Password);
+            Console.WriteLine(InserirColaboradorDto.User);
+            Console.WriteLine(InserirColaboradorDto.Funcao);
+        }
+        
         private string GetEnumDisplayName(Funcao value)
         {
             var displayAttribute = value.GetType()

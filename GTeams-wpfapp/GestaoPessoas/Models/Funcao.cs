@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace GTeams_wpfapp.Models;
+namespace GTeams_wpfapp.GestaoPessoas.Models;
 
 public enum Funcao
 {

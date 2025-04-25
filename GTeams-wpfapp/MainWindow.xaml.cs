@@ -1,14 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using GTeams_wpfapp.Views;
-using GTeams_wpfapp.Views.Colaborador;
+using GTeams_wpfapp.GestaoPessoas.Views;
+using GTeams_wpfapp.GestaoPessoas.Views.Colaborador;
 
 namespace GTeams_wpfapp;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow
 {
     public MainWindow()
     {

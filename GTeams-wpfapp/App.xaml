@@ -5,12 +5,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/GestaoPessoas/Resources/Styles/NavButtonStyle.xaml" />
-                <ResourceDictionary Source="/GestaoPessoas/Resources/Styles/ModernExpander.xaml" />
-                <ResourceDictionary Source="/GestaoPessoas/Resources/Styles/DashboardCard.xaml" />
-                <ResourceDictionary Source="/GestaoPessoas/Resources/Styles/ModernTextBox.xaml" />
-                <ResourceDictionary Source="/GestaoPessoas/Resources/Styles/ModernPasswordBox.xaml" />
-                <ResourceDictionary Source="/GestaoPessoas/Resources/Styles/ModernComboBox.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/NavButtonStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ModernExpander.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/DashboardCard.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ModernTextBox.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ModernPasswordBox.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ModernComboBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

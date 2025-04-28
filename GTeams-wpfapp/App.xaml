@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Resources/Styles/ModernTextBox.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/ModernPasswordBox.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/ModernComboBox.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ModernDataGrid.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

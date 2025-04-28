@@ -193,6 +193,7 @@
                     
                     <GroupBox Grid.Row="7" Grid.Column="0" Header="E-mails">
                         <DataGrid ItemsSource="{Binding Emails}"
+                                  Style="{StaticResource ModernDataGrid}"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="True"
                                   CanUserDeleteRows="True"
@@ -208,6 +209,7 @@
 
                     <GroupBox Grid.Row="7" Grid.Column="1" Header="Matrículas">
                         <DataGrid ItemsSource="{Binding Matriculas}"
+                                  Style="{StaticResource ModernDataGrid}"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="True"
                                   CanUserDeleteRows="True"

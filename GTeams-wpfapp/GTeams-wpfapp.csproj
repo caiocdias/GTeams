@@ -96,8 +96,4 @@
       </Page>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="GestaoPessoas\Resources\Styles\" />
-    </ItemGroup>
-
 </Project>

@@ -42,7 +42,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="250" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -173,8 +173,53 @@
                               Foreground="#28314C"
                               Background="#F8FAFD" />
                     
-                    <Grid Grid.Row="6" Column="0" />
+                    <!-- TxtEmail -->
+                    <TextBlock Text="Emails"  
+                               Grid.Row="6"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="8,0,8,14"
+                               FontWeight="SemiBold"
+                               Foreground="#1A2342" />
                     
+                    <!-- TxtMatricula -->
+                    <TextBlock Text="Matriculas"  
+                               Grid.Row="6"
+                               Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Margin="8,0,8,14"
+                               FontWeight="SemiBold"
+                               Foreground="#1A2342" />
+                    
+                    <GroupBox Grid.Row="7" Grid.Column="0" Header="E-mails">
+                        <DataGrid ItemsSource="{Binding Emails}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="True"
+                                  CanUserDeleteRows="True"
+                                  Margin="0,8,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Descrição"
+                                                    Binding="{Binding Descricao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Endereço"
+                                                    Binding="{Binding Endereco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="7" Grid.Column="1" Header="Matrículas">
+                        <DataGrid ItemsSource="{Binding Matriculas}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="True"
+                                  CanUserDeleteRows="True"
+                                  Margin="0,8,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Código"
+                                                    Binding="{Binding Codigo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Descrição"
+                                                    Binding="{Binding Descricao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
                     
                     <Button Content="Salvar"
                             Grid.Row="8"

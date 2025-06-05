@@ -210,6 +210,7 @@
                     <GroupBox Grid.Row="7" Grid.Column="1" Header="Matrículas">
                         <DataGrid ItemsSource="{Binding Matriculas}"
                                   Style="{StaticResource ModernDataGrid}"
+                                  HeadersVisibility="Column"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="True"
                                   CanUserDeleteRows="True"

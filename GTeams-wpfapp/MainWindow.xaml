@@ -64,7 +64,7 @@
                                      Style="{StaticResource ModernExpander}">
                                 <StackPanel Margin="20,5,10,10">
                                     <Button Content="Criar" Style="{StaticResource NavButtonStyle}" Click="LoadCadastrarColaborador"/>
-                                    <Button Content="Listar" Style="{StaticResource NavButtonStyle}"/>
+                                    <Button Content="Listar" Style="{StaticResource NavButtonStyle}" Click="LoadListarColaborador"/>
                                     <Button Content="Editar" Style="{StaticResource NavButtonStyle}"/>
                                     <Button Content="Excluir" Style="{StaticResource NavButtonStyle}"/>
                                 </StackPanel>

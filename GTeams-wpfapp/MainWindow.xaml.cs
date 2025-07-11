@@ -28,4 +28,10 @@ public partial class MainWindow
         MainContent.Content = null;
         MainContent.Content = new CadastrarColaborador();
     }
+
+    private void LoadListarColaborador(object sender, RoutedEventArgs routedEventArgs)
+    {
+        MainContent.Content = null;
+        MainContent.Content = new ListarColaborador();
+    }
 }

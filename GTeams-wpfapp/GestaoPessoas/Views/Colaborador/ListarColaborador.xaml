@@ -52,6 +52,21 @@
                     FontSize="13"
                     BorderThickness="0"
                     Cursor="Hand" />
+            
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <xctk:RichTextBox AcceptsTab="False" Width="120" Margin="0, 5, 0, 0" />
+                <Button Content="Buscar"
+                        Margin="10, 5, 0, 0"
+                        Grid.Column="1"
+                        Width="100"
+                        Height="32"
+                        Background="#1A2342"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        FontSize="13"
+                        BorderThickness="0"
+                        Cursor="Hand" />
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:behaviors="clr-namespace:GTeams_wpfapp.Behaviors"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="460" d:DesignWidth="500"
              Background="#F5F7FA">
@@ -79,21 +80,19 @@
                                Margin="0,0,8,14"
                                FontWeight="SemiBold"
                                Foreground="#1A2342" />
-                    <TextBox Name="TxtBoxCpf"
-                             Style="{StaticResource ModernTextBox}"
-                             Grid.Row="3"
-                             Grid.Column="0"
-                             Height="32"
-                             Padding="10,4"
-                             Margin="0,0,0,14"
-                             FontSize="14"
-                             BorderBrush="#B0BED1"
-                             Foreground="#28314C"
-                             Background="#F8FAFD">
-                        <i:Interaction.Behaviors>
-                            <behaviors:CpfMaskBehavior />
-                        </i:Interaction.Behaviors>
-                    </TextBox>
+                    
+                    <xctk:MaskedTextBox Mask="000\.000\.000\-00" 
+                        Name="TxtBoxCpf"
+                        Style="{StaticResource ModernTextBox}"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Height="32"
+                        Padding="10,4"
+                        Margin="0,0,0,14"
+                        FontSize="14"
+                        BorderBrush="#B0BED1"
+                        Foreground="#28314C"
+                        Background="#F8FAFD" />
 
                     <!-- Usuário -->
                     <TextBlock Text="Usuário:"
@@ -103,6 +102,7 @@
                                Margin="0,0,8,14"
                                FontWeight="SemiBold"
                                Foreground="#1A2342" />
+                    
                     <TextBox Name="TxtBoxUser"
                              Style="{StaticResource ModernTextBox}"
                              Grid.Row="5" Grid.Column="0"
@@ -122,6 +122,7 @@
                                Margin="8,0,8,14"
                                FontWeight="SemiBold"
                                Foreground="#1A2342" />
+                    
                     <PasswordBox Name="PwdBox"
                                  Style="{StaticResource ModernPasswordBox}"
                                  Grid.Row="1"

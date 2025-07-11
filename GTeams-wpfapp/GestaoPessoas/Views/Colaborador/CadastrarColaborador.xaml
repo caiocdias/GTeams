@@ -200,10 +200,10 @@
                                   CanUserDeleteRows="True"
                                   Margin="0,8,0,0">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Descrição"
-                                                    Binding="{Binding Descricao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <DataGridTextColumn Header="Endereço"
                                                     Binding="{Binding Endereco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Descrição"
+                                                    Binding="{Binding Descricao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>

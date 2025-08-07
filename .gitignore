@@ -1,0 +1,24 @@
+# Arquivos de configuração da IDE GoLand e outras IDEs da JetBrains
+# Semelhante ao que você já fazia no seu projeto .NET
+.idea/
+
+# Binários e executáveis compilados
+# O nome do executável geralmente é o mesmo do módulo/pasta.
+# Substitua 'gteams-go-backend' pelo nome do seu executável se for diferente.
+/gteams-go-backend
+/gteams-go-backend.exe
+
+# Arquivos de log
+*.log
+
+# Arquivos de ambiente local (não devem ir para o repositório)
+.env
+
+# Arquivos de cobertura de teste (gerados por 'go test')
+*.out
+cover.out
+
+# Diretório de dependências "vendoring" (Opcional)
+# Descomente a linha abaixo se você decidir usar 'go mod vendor' mas não
+# quiser versionar a pasta de dependências.
+# vendor/
